@@ -16,8 +16,6 @@ const YouTube = class {
 		for(var i = 0; i < splitFilter.length; i++) {
 			this.filterList[splitFilter[i]] = true
 		}
-		
-		console.log(this.filterList)
 	}
 	
 	parse(searchterm) {
