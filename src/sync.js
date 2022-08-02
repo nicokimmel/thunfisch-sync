@@ -14,6 +14,7 @@ app.use(express.static(__dirname + "/public"))
 const logger = new Logger()
 const roomList = new RoomList()
 const youtube = new YouTube()
+const sponsorBlock = new SponsorBlock()
 const lyrics = new Lyrics(io)
 const cli = new Console(io, roomList)
 
@@ -175,6 +176,7 @@ io.on("connection", function(client) {
 		room.playing = true
 		room.video = videoList[0]
 		io.in(room.id).emit("video", room)
+		sponsorBlock.getSegments(room)
 		lyrics.send(room)
 		logger.log(`Played video "${room.video.id}" in room #${room.id}`, ip)
 	})
@@ -328,9 +330,16 @@ setInterval(function() {
 			return
 		}
 		
+		var skipSponsor = sponsorBlock.check(room.time, room.video.sponsors)
+		if(skipSponsor) {
+			logger.log(`Skipped video in toom #${room.id} to ${skipSponsor}s because of SponsorBlock.`)
+			room.time = skipSponsor
+		}
+		
 		room.time = room.time + parseFloat(room.speed)
 		if(room.time > room.video.duration) {
 			room.next()
+			sponsorBlock.getSegments(room)
 			lyrics.send(room)
 			io.in(room.id).emit("video", room)
 			io.in(room.id).emit("queue", room.queue)

@@ -16,6 +16,7 @@ module.exports = function(grunt) {
 						"src/logger.js",
 						"src/rooms.js",
 						"src/youtube.js",
+						"src/sponsorblock.js",
 						"src/lyrics.js",
 						"src/console.js",
 						"src/sync.js"
