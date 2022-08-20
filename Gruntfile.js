@@ -9,10 +9,13 @@ module.exports = function(grunt) {
 				]
 			}
 		},
-		uglify: {
-			server: {
-				files: {
-					"dist/sync.js": [
+		concat: {
+			options: {
+				separator: "\n\n",
+			},
+			dist: {
+				dest: "dist/sync.js",
+				src: [
 						"src/logger.js",
 						"src/rooms.js",
 						"src/youtube.js",
@@ -20,9 +23,10 @@ module.exports = function(grunt) {
 						"src/lyrics.js",
 						"src/console.js",
 						"src/sync.js"
-					]
-				}
+				],
 			},
+		},
+		uglify: {
 			client: {
 				files: {
 					"dist/public/js/room.min.js": [
@@ -52,6 +56,7 @@ module.exports = function(grunt) {
 		},
 	})
 	grunt.loadNpmTasks("grunt-contrib-copy")
+	grunt.loadNpmTasks("grunt-contrib-concat")
 	grunt.loadNpmTasks("grunt-contrib-uglify")
-	grunt.registerTask("default", ["copy", "uglify"])
+	grunt.registerTask("default", ["copy", "concat", "uglify"])
 }

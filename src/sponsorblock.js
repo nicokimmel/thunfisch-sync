@@ -7,7 +7,7 @@ const SponsorBlock = class {
 	getSegments(room) {
 		console.log("SponsorBlock: " + room.video.id)
 		this.request(this.url + room.video.id, { json: true }, (err, res, body) => {
-			if(body === "Not Found") {
+			if(res.statusCode != 200) {
 				room.video.sponsors = []
 				return
 			}
