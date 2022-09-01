@@ -165,6 +165,11 @@ $("#fullscreen").click(function(event) {
 	}
 })
 $("#video").bind("fullscreenchange", function(event) {
+	if(document.fullscreenElement) {
+		screen.orientation.lock("landscape")
+	} else {
+		screen.orientation.unlock()
+	}
 	var border = document.fullscreenElement ? "none" : "1px solid var(--colorBlue)"
 	$(this).css("border", border)
 })
