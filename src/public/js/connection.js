@@ -4,6 +4,7 @@ const socket = io.connect("localhost:3000")
 var sync = {
 	sessionId: "none",
 	playerReady: false,
+	locked: false,
 	queue: {
 		list: []
 	},

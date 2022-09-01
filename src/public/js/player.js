@@ -52,6 +52,18 @@ function showTooltip(element, text, mouseX) {
 	})
 }
 
+//  LOCK  //
+if(displayMode === "browser") {
+	$("#lock").hide()
+}
+$("#lock").click(function() {
+	sync.locked = !sync.locked
+	$("#lock").siblings().css("pointer-events", `${sync.locked ? "none" : "auto"}`)
+	$("#title").css("pointer-events", `${sync.locked ? "none" : "auto"}`)
+	$("#progress").css("pointer-events", `${sync.locked ? "none" : "auto"}`)
+	$("#lock").html(`<i class="fa-solid fa-lock${sync.locked ? "" : "-open"}"></i>`)
+})
+
 //  OPTIONS  //
 $("#optionsWindow").hide()
 $("#options").click(function() {
