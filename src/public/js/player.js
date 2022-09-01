@@ -53,7 +53,7 @@ function showTooltip(element, text, mouseX) {
 }
 
 //  LOCK  //
-if(displayMode === "browser") {
+if(!sync.mobile) {
 	$("#lock").hide()
 }
 $("#lock").click(function() {

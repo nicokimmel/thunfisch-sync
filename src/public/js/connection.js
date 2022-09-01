@@ -2,6 +2,7 @@ const roomId = $("#roomId").val()
 const socket = io.connect("localhost:3000")
 
 var sync = {
+	mobile: window.matchMedia("(max-width: 900px)").matches,
 	sessionId: "none",
 	playerReady: false,
 	locked: false,
