@@ -37,6 +37,8 @@ function refreshOverlay(room) {
 //  TOOLTIPS  //
 $("#tooltip").hide()
 function showTooltip(element, text, mouseX) {
+	if(sync.mobile) { return }
+	
 	$("#tooltip").html(text)
 	$("#tooltip").show()
 	
