@@ -10,10 +10,10 @@ const Room = class {
 		this.loop = false
 		this.queue = []
 		this.video = {
-			id: "9Ej-0VRWmI8",
+			id: "9jHwwJgSTR4",
 			title: "Coral Reef Aquarium",
-			thumbnail: "https://img.youtube.com/vi/9Ej-0VRWmI8/mqdefault.jpg",
-			duration: 36049,
+			thumbnail: "https://img.youtube.com/vi/9jHwwJgSTR4/mqdefault.jpg",
+			duration: 30000,
 			tags: ["Thunfisch Sync", "Modern", "Simple", "Watch", "Listen", "Relax", "Together", "🐟"],
 		}
 	}
