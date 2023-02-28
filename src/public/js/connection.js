@@ -101,6 +101,10 @@ socket.on("loop", function(enabled) {
 	$("#loopToggle").prop("checked", enabled)
 })
 
+socket.on("sponsorblock", function(enabled) {
+	$("#sponsorBlockToggle").prop("checked", enabled)
+})
+
 socket.on("viewers", function(amount) {
 	$("#viewerCount").text(amount)
 })

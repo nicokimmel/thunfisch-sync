@@ -28,6 +28,7 @@ function refreshOverlay(room) {
 	$("#playPause").html(`<i class="fa-solid fa-${room.playing ? "pause" : "play"}"></i>`)
 	$("#title").html(`<a href="https://www.youtube.com/watch?v=${room.video.id}" target=”_blank”><i class="fa-solid fa-link"></i> ${room.video.title}</a>`)
 	$("#loopToggle").prop("checked", room.loop)
+	$("#sponsorBlockToggle").prop("checked", room.sponsorBlock)
 	updateTime(room.video.duration)
 	window.setTimeout(() => {
 		setSubtitles()
@@ -74,6 +75,10 @@ $("#options").click(function() {
 
 $("#loopToggle").click(function(event) {
 	socket.emit("loop")
+})
+
+$("#sponsorBlockToggle").click(function(event) {
+	socket.emit("sponsorblock")
 })
 
 var subtitles = false

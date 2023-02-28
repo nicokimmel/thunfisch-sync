@@ -138,6 +138,13 @@ io.on("connection", function(client) {
 		logger.log(`${room.loop ? "Enabled" : "Disabled"} loop in room #${room.id}`, ip)
 	})
 	
+	client.on("sponsorblock", function() {
+		if(!room) { return }
+		room.sponsorBlock = !room.sponsorBlock
+		io.in(room.id).emit("sponsorblock", room.sponsorBlock)
+		logger.log(`${room.sponsorBlock ? "Enabled" : "Disabled"} SponsorBlock in room #${room.id}`, ip)
+	})
+	
 	client.on("lyrics", function() {
 		if(!room) { return }
 		lyrics.send(room, client)
@@ -176,7 +183,7 @@ io.on("connection", function(client) {
 		room.playing = true
 		room.video = videoList[0]
 		io.in(room.id).emit("video", room)
-		sponsorBlock.getSegments(room)
+		sponsorBlock.loadSegments(room)
 		lyrics.send(room)
 		logger.log(`Played video "${room.video.id}" in room #${room.id}`, ip)
 	})
@@ -331,15 +338,16 @@ setInterval(function() {
 		}
 		
 		var skipSponsor = sponsorBlock.check(room.time, room.video.sponsors)
-		if(skipSponsor) {
+		if(room.sponsorBlock && skipSponsor) {
 			logger.log(`Skipped video in toom #${room.id} to ${skipSponsor}s because of SponsorBlock.`)
 			room.time = skipSponsor
+			io.in(room.id).emit("seek", room.time)
 		}
 		
 		room.time = room.time + parseFloat(room.speed)
 		if(room.time > room.video.duration) {
 			room.next()
-			sponsorBlock.getSegments(room)
+			sponsorBlock.loadSegments(room)
 			lyrics.send(room)
 			io.in(room.id).emit("video", room)
 			io.in(room.id).emit("queue", room.queue)

@@ -8,6 +8,7 @@ const Room = class {
 		this.time = 2222
 		this.speed = 1.0
 		this.loop = false
+		this.sponsorBlock = true
 		this.queue = []
 		this.video = {
 			id: "9jHwwJgSTR4",
@@ -79,6 +80,7 @@ const Room = class {
 			time: this.time,
 			speed: this.speed,
 			loop: this.loop,
+			sponsorBlock: this.sponsorBlock,
 			queue: this.queue,
 			video: this.video
 		}

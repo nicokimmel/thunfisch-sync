@@ -4,7 +4,7 @@ const SponsorBlock = class {
 		this.url = "https://sponsor.ajay.app/api/skipSegments?videoID="
 	}
 	
-	getSegments(room) {
+	loadSegments(room) {
 		this.request(this.url + room.video.id, { json: true }, (err, res, body) => {
 			if(res.statusCode != 200) {
 				room.video.sponsors = []
