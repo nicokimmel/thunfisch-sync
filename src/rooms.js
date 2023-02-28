@@ -5,16 +5,16 @@ const Room = class {
 		this.idle = 0
 		this.viewers = 0
 		this.playing = true
-		this.time = 2222
+		this.time = 126
 		this.speed = 1.0
 		this.loop = false
 		this.sponsorBlock = true
 		this.queue = []
 		this.video = {
-			id: "9jHwwJgSTR4",
-			title: "Coral Reef Aquarium",
-			thumbnail: "https://img.youtube.com/vi/9jHwwJgSTR4/mqdefault.jpg",
-			duration: 30000,
+			id: "JXkUOldlHrk",
+			title: "Betta splendens",
+			thumbnail: "https://img.youtube.com/vi/JXkUOldlHrk/mqdefault.jpg",
+			duration: 6293,
 			tags: ["Thunfisch Sync", "Modern", "Simple", "Watch", "Listen", "Relax", "Together", "🐟"],
 		}
 	}
