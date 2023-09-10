@@ -11,10 +11,10 @@ const Room = class {
 		this.sponsorBlock = true
 		this.queue = []
 		this.video = {
-			id: "JXkUOldlHrk",
+			id: "p5WxxAAh-1U",
 			title: "Betta splendens",
-			thumbnail: "https://img.youtube.com/vi/JXkUOldlHrk/mqdefault.jpg",
-			duration: 6293,
+			thumbnail: "https://img.youtube.com/vi/p5WxxAAh-1U/mqdefault.jpg",
+			duration: 456,
 			tags: ["Thunfisch Sync", "Modern", "Simple", "Watch", "Listen", "Relax", "Together", "🐟"],
 		}
 	}
