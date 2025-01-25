@@ -73,7 +73,5 @@ app.get("/:roomId/manifest.json", (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`)
-
-  roomList.create("STANDARD", true)
   sync.loop()
 })

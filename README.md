@@ -60,3 +60,4 @@ server {
 * Implement channel filter
 * Check video objects in server
 * Move sponsorblock away from server video event and loop
+* Add logging

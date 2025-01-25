@@ -133,7 +133,7 @@ export class RoomList {
 
     valid(roomId) {
         const regex = new RegExp(`^[${RoomList.VALID_CHARACTERS}]{8}$`)
-        return regex.test(roomId);
+        return regex.test(roomId)
     }
 
     remove(roomId) {
@@ -147,21 +147,27 @@ export class RoomList {
     }
 
     load() {
-        if (!fs.existsSync(RoomList.ROOM_FILE)) {
-            return
-        }
-        const buffer = fs.readFileSync(RoomList.ROOM_FILE)
-        if (buffer.length == 0) {
-            return
+        try {
+            if (!fs.existsSync(RoomList.ROOM_FILE)) {
+                fs.writeFileSync(RoomList.ROOM_FILE, JSON.stringify(["STANDARD"]), { flag: "w" })
+            }
+
+            const buffer = fs.readFileSync(RoomList.ROOM_FILE)
+            if (buffer.length == 0) {
+                return
+            }
+
+            const stickyRooms = JSON.parse(buffer)
+            for (let i = 0; i < stickyRooms.length; i++) {
+                let roomId = stickyRooms[i]
+                if (!this.exists(roomId)) {
+                    this.create(roomId, true)
+                }
+            }
+        } catch (error) {
+
         }
 
-        const stickyRooms = JSON.parse(buffer)
-        for (let i = 0; i < stickyRooms.length; i++) {
-            let roomId = stickyRooms[i]
-            if (!this.exists(roomId)) {
-                this.create(roomId, true)
-            }
-        }
     }
 
     save() {
