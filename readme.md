@@ -6,7 +6,7 @@ Es handelt sich um eine simple Watch2Gether Alternative, das bedeutet man kann s
 
 ## Installation
 
-_Aktuell wird für den Client ein Bash Skript genutzt um die aus React entstandene `index.html` in ein `.ejs` Template umzuwandeln. Falls Windows genutzt wird muss man diesen Schritt per Hand machen oder das Skript angepasst werden. Dazu ggf. ChatGPT fragen._
+_Aktuell wird für den Client ein Bash Skript genutzt um die aus React entstandene `index.html` in ein `.ejs` Template umzuwandeln. Falls Windows genutzt wird muss dieser Schritt per Hand gemacht oder das Skript angepasst werden. Dazu ggf. ChatGPT fragen._
 
 1. Git Repository klonen
 2. Node Dependencies mit `npm run install` installieren
