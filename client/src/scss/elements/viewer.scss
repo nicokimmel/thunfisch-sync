@@ -1,0 +1,25 @@
+@use "../config/" as *;
+
+.viewer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 65%;
+    padding: 0 15px;
+    border-radius: $border-radius-25;
+    background-color: $color-transparent-dark;
+    color: $font-color;
+    
+    span {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-family: $font-family !important;
+        font-size: 1.2rem;
+        
+        &::before {
+            font-family: $font-family-icon !important;
+            font-size: 20px;
+        }
+    }
+}

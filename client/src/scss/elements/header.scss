@@ -1,0 +1,57 @@
+@use "../config/" as *;
+
+header {
+    position: relative;
+    z-index: $z-index-player-header;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+    max-width: $content-width;
+    height: 64px;
+    margin: 5px auto;
+    padding: 0 10px;
+
+    .search {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .logo {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 100%;
+        font-size: $font-size-large;
+        font-weight: $font-weight-bold;
+        color: $color-white;
+
+        img {
+            width: auto;
+            height: 70%;
+            border-radius: $border-radius-circle;
+            object-fit: contain;
+        }
+        
+        span {
+            font-size: 1.2rem;
+            color: $color-yellow;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-phablet) {
+    header {
+        margin-bottom: 64px;
+        
+        .search {
+            position: absolute;
+            top: 74px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}

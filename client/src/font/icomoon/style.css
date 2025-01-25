@@ -1,0 +1,98 @@
+[class^="icon-"]::before, [class*=" icon-"]::before {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "IcoMoon" !important;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: never;
+  font-variant: normal;
+  text-transform: none;
+}
+
+.icon-bolt-lightning::before {
+  content: "\e914";
+}
+
+.icon-circle-user::before {
+  content: "\e913";
+}
+
+.icon-broom::before {
+  content: "\e911";
+}
+
+.icon-shuffle::before {
+  content: "\e912";
+}
+
+.icon-magnifying-glass::before {
+  content: "\e910";
+}
+
+.icon-youtube-brands::before {
+  content: "\e90f";
+}
+
+.icon-shield-halved::before {
+  content: "\e90c";
+}
+
+.icon-rotate::before {
+  content: "\e90d";
+}
+
+.icon-arrow-up-right-from-square::before {
+  content: "\e90e";
+}
+
+.icon-trash-can::before {
+  content: "\e908";
+}
+
+.icon-chevron-down::before {
+  content: "\e909";
+}
+
+.icon-chevron-up::before {
+  content: "\e90a";
+}
+
+.icon-plus::before {
+  content: "\e90b";
+}
+
+.icon-expand::before {
+  content: "\e900";
+}
+
+.icon-gear::before {
+  content: "\e901";
+}
+
+.icon-volume-xmark::before {
+  content: "\e902";
+}
+
+.icon-volume-high::before {
+  content: "\e903";
+}
+
+.icon-volume-low::before {
+  content: "\e904";
+}
+
+.icon-volume-off::before {
+  content: "\e905";
+}
+
+.icon-pause::before {
+  content: "\e906";
+}
+
+.icon-play::before {
+  content: "\e907";
+}

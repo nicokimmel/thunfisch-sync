@@ -1,0 +1,16 @@
+@use "sass:math";
+
+@import "./typography.scss";
+
+@function rem($length-in-px) {
+    @return math.div(strip-unit($length-in-px), strip-unit($font-size)) * 1rem;
+}
+
+@mixin max-lines($lines) {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: $lines;
+    line-clamp: $lines;
+    -webkit-box-orient: vertical;
+}

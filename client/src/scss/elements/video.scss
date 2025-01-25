@@ -1,0 +1,77 @@
+@use "../config/" as *;
+
+.video {
+    display: flex;
+    gap: 10px;
+    height: 105px;
+    border-radius: $border-radius-8;
+
+    &-thumbnail {
+        position: relative;
+        width: 45%;
+        max-width: 150px;
+
+        &-image {
+            width: 100%;
+            height: 100%;
+            border-radius: $border-radius-8;
+            object-fit: cover;
+        }
+
+        &-duration {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            margin: 0 5px 5px 0;
+            padding: 5px;
+            border-radius: $border-radius-4;
+            background-color: $color-transparent-darkest;
+        }
+    }
+
+    &-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        width: 55%;
+        padding: 5px 0;
+
+        &-title {
+            font-weight: $font-weight-medium;
+
+            @include max-lines(3);
+        }
+
+        &-channel {
+            color: $color-grey-AA;
+
+            @include max-lines(1);
+        }
+
+        &-buttons {
+            display: flex;
+            gap: 5px;
+
+            button {
+                width: 24px;
+                height: 24px;
+                border: none;
+                border-radius: $border-radius-4;
+                background-color: $color-transparent-light;
+                color: $color-grey-AA;
+
+                &:hover {
+                    background-color: $color-transparent-active;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-phone) {
+    .video {
+        width: calc(100% - 20px);
+        min-width: initial;
+    }
+}

@@ -1,0 +1,36 @@
+@use "./config/" as *;
+
+@import "../font/icomoon/style.css";
+
+@font-face {
+    font-family: $font-family-icon;
+    font-style: normal;
+    font-weight: normal;
+    src: url("../font/icomoon/fonts/icomoon.eot?e5sx91");
+    src: url("../font/icomoon/fonts/icomoon.eot?e5sx91#iefix") format("embedded-opentype"),
+        url("../font/icomoon/fonts/icomoon.ttf?e5sx91") format("truetype"),
+        url("../font/icomoon/fonts/icomoon.woff?e5sx91") format("woff"),
+        url("../font/icomoon/fonts/icomoon.svg?e5sx91#icomoon") format("svg");
+}
+
+@font-face {
+    font-family: $font-family;
+    font-style: normal;
+    font-weight: 400;
+    src: url("../font/Poppins-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: $font-family;
+    font-style: normal;
+    font-weight: 500;
+    src: url("../font/Poppins-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: $font-family;
+    font-style: normal;
+    font-weight: 700;
+    src: url("../font/Poppins-Bold.ttf") format("truetype");
+}
+
