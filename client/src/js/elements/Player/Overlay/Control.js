@@ -5,9 +5,11 @@ import Button from "./Control/Button"
 import Volume from "./Control/Volume"
 
 export default function Control({
+    deviceType,
     playing, onPlayPause,
     mute, onMute,
     volume, onVolume,
+    lock, onLock,
     onOptions,
     onFullscreen
 }) {
@@ -15,12 +17,17 @@ export default function Control({
         <div className={"player-overlay-control"}>
             <Button icon={playing ? "icon-pause" : "icon-play"} onClick={onPlayPause} />
             <Volume
+                deviceType={deviceType}
                 mute={mute}
                 onMute={onMute}
                 volume={volume}
                 onVolume={onVolume}
             />
             <Spacer type={"grow"} />
+            {
+                deviceType !== "desktop" &&
+                <Button icon={lock ? "icon-lock" : "icon-unlock"} onClick={onLock} />
+            }
             <Button icon={"icon-gear"} onClick={onOptions} />
             <Button icon={"icon-expand"} onClick={onFullscreen} />
         </div>

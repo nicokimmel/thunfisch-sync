@@ -16,6 +16,7 @@ export default function useDevice() {
             }
         }
 
+        handleResize()
         window.addEventListener("resize", handleResize)
 
         return () => {

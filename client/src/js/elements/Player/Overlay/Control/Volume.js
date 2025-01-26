@@ -7,6 +7,7 @@ import RangeSlider from "react-range-slider-input"
 import Button from "./Button"
 
 export default function Volume({
+    deviceType,
     mute, onMute,
     volume, onVolume
 }) {
@@ -40,15 +41,18 @@ export default function Volume({
                 icon={icon}
                 onClick={handleVolumeButtonClick}
             />
-            <RangeSlider
-                defaultValue={[0, localStorage.getItem("volume") * 100 || 25]}
-                thumbsDisabled={[true, false]}
-                rangeSlideDisabled={true}
-                min={0}
-                max={100}
-                step={1}
-                onInput={handleVolumeSliderInput}
-            />
+            {
+                deviceType === "desktop" &&
+                <RangeSlider
+                    defaultValue={[0, localStorage.getItem("volume") * 100 || 25]}
+                    thumbsDisabled={[true, false]}
+                    rangeSlideDisabled={true}
+                    min={0}
+                    max={100}
+                    step={1}
+                    onInput={handleVolumeSliderInput}
+                />
+            }
         </div>
     )
 }

@@ -70,8 +70,6 @@ export default function Player({
                 playing ? player.playVideo() : player.pauseVideo()
             }, 500)
         }
-        
-        console.log(youtubeRef.current.getInternalPlayer())
     }
 
     useEffect(() => {
@@ -80,6 +78,14 @@ export default function Player({
             youtubeRef.current.seekTo(time)
         }
     }, [time])
+    
+    useEffect(() => {
+        if(deviceType === "desktop") {
+            setVolume(JSON.parse(localStorage.getItem("volume") ?? "0.25"))
+        } else {
+            setVolume(1)
+        }
+    }, [deviceType])
 
     return (
         <div className="player" ref={playerRef}>

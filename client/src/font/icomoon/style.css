@@ -1,4 +1,4 @@
-[class^="icon-"]::before, [class*=" icon-"]::before {
+[class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: "IcoMoon" !important;
   font-style: normal;
@@ -11,6 +11,14 @@
   speak: never;
   font-variant: normal;
   text-transform: none;
+}
+
+.icon-lock::before {
+  content: "\e915";
+}
+
+.icon-unlock::before {
+  content: "\e916";
 }
 
 .icon-bolt-lightning::before {

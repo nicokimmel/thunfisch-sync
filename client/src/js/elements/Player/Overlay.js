@@ -21,6 +21,10 @@ export default function Overlay({
     const [options, setOptions] = useState(false)
     const [lock, setLock] = useState(false)
 
+    const handleLock = () => {
+        setLock(!lock)
+    }
+    
     const handleOptions = () => {
         setOptions(!options)
     }
@@ -53,6 +57,7 @@ export default function Overlay({
                 onSeek={handleLockWrapper(onSeek)}
             />
             <Control
+                deviceType={deviceType}
                 playing={playing}
                 onPlayPause={handleLockWrapper(onPlayPause)}
                 currentTime={currentTime}
@@ -60,6 +65,8 @@ export default function Overlay({
                 onMute={handleLockWrapper(onMute)}
                 volume={volume}
                 onVolume={handleLockWrapper(onVolume)}
+                lock={lock}
+                onLock={handleLock}
                 onOptions={handleLockWrapper(handleOptions)}
                 onFullscreen={handleLockWrapper(onFullscreen)}
             />
