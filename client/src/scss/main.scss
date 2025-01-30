@@ -1,5 +1,6 @@
 @use "./config/" as *;
 
+@import "react-range-slider-input/dist/style.css";
 @import "./helper.scss";
 @import "./font.scss";
 
@@ -34,7 +35,7 @@ body {
 
 body {
     background-color: $color-grey-0C;
-    font-family: $font-family, "Arial", sans-serif;
+    font-family: $font-family-poppins, "Arial", sans-serif;
     font-size: $font-size;
     font-weight: $font-weight;
     line-height: $line-height;

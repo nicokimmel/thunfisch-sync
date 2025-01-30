@@ -1,7 +1,5 @@
 import "./scss/main.scss"
 
-import "react-range-slider-input/dist/style.css"
-
 import React from "react"
 import ReactDOM from "react-dom/client"
 
