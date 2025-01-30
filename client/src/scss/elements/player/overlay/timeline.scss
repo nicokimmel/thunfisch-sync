@@ -5,8 +5,10 @@ $range-slider-background: linear-gradient(0deg, transparent 25%, rgba($color-whi
 $range-slider-background-hover: linear-gradient(0deg, transparent 25%, rgba($color-white, .6) 25%, rgba($color-white, .6) 75%, transparent 75%);
 
 .player-overlay-timeline {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 15px;
 
     .range-slider {
@@ -34,8 +36,15 @@ $range-slider-background-hover: linear-gradient(0deg, transparent 25%, rgba($col
             background: $range-slider-background-hover;
         }
     }
-
-    span {
-        font-size: 1rem;
+    
+    &-tooltip {
+        position: absolute;
+        bottom: 20px;
+        padding: 5px 10px;
+        border-radius: $border-radius-8;
+        background: $color-transparent-darkest;
+        font-family: $font-family-roboto-mono;
+        pointer-events: none;
+        transform: translateX(-50%);
     }
 }

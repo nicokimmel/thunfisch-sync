@@ -58,9 +58,10 @@ export default function Overlay({
             />
             <Control
                 deviceType={deviceType}
+                currentTime={currentTime}
+                duration={duration}
                 playing={playing}
                 onPlayPause={handleLockWrapper(onPlayPause)}
-                currentTime={currentTime}
                 mute={mute}
                 onMute={handleLockWrapper(onMute)}
                 volume={volume}
