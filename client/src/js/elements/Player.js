@@ -86,7 +86,7 @@ export default function Player({
             setVolume(1)
         }
     }, [deviceType])
-
+    
     return (
         <div className="player" ref={playerRef}>
             {
@@ -134,6 +134,7 @@ export default function Player({
                 config={{
                     youtube: {
                         playerVars: {
+                            origin: "*",
                             autoplay: 1,
                             controls: 0,
                             disablekb: 1,
@@ -156,7 +157,6 @@ export default function Player({
                 volume={volume}
                 muted={mute}
                 playbackRate={speed}
-                pip={true}
                 playsinline
                 onProgress={handleProgress}
                 onReady={handleReady}
