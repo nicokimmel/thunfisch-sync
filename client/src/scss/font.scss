@@ -14,23 +14,30 @@
 }
 
 @font-face {
-    font-family: $font-family;
+    font-family: $font-family-poppins;
     font-style: normal;
     font-weight: 400;
     src: url("../font/Poppins-Regular.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: $font-family;
+    font-family: $font-family-poppins;
     font-style: normal;
     font-weight: 500;
     src: url("../font/Poppins-Medium.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: $font-family;
+    font-family: $font-family-poppins;
     font-style: normal;
     font-weight: 700;
     src: url("../font/Poppins-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: $font-family-roboto-mono;
+    font-style: normal;
+    font-weight: 400;
+    src: url("../font/RobotoMono-Regular.ttf") format("truetype");
 }
 
