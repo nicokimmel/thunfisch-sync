@@ -25,7 +25,7 @@ export class Room {
                 id: "#",
                 name: "Thunfisch Sync",
                 subscribers: 187,
-                image: "https://sync.thunfisch.lol/img/tuna_sync.png"
+                image: "https://sync.thunfisch.lol/icons/android-icon-48x48.png"
             },
             duration: 4021,
             tags: ["Thunfisch Sync", "Modern", "Simple", "Watch", "Listen", "Relax", "Together", "🐟"],
