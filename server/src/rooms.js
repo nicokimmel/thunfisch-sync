@@ -9,7 +9,7 @@ export class Room {
 
         this.player = {
             playing: true,
-            time: 126,
+            time: 1031,
             speed: 1.0,
             loop: false,
             sponsorBlock: {
