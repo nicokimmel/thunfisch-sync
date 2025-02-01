@@ -87,6 +87,14 @@ export default function Player({
         }
     }, [deviceType])
     
+    useEffect(() => {
+        if(document.fullscreenElement) {
+            setAmbilight(false) 
+        } else {
+            setAmbilight(JSON.parse(localStorage.getItem("ambilight") ?? "true"))
+        }
+    }, [document.fullscreenElement])
+    
     return (
         <div className="player" ref={playerRef}>
             {
