@@ -10,6 +10,7 @@ import bodyParser from "body-parser"
 import { Room, RoomList } from "./rooms.js"
 import Connection from "./connection.js"
 import Sync from "./sync.js"
+import ExitHelper from "./exithelper.js"
 
 const PORT = process.env.PORT || 3000
 
@@ -21,6 +22,7 @@ const server = http.createServer(app)
 const roomList = new RoomList()
 const connection = new Connection(server, roomList)
 const sync = new Sync(connection, roomList)
+new ExitHelper(roomList)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -73,5 +75,6 @@ app.get("/:roomId/manifest.json", (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`)
+  roomList.create("STANDARD", true)
   sync.loop()
 })

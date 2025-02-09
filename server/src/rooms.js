@@ -108,7 +108,7 @@ export class RoomList {
 
     create(roomId, sticky) {
         if (this.exists(roomId)) {
-            return
+            return this.get(roomId)
         }
 
         if (!roomId) {
@@ -147,37 +147,33 @@ export class RoomList {
     }
 
     load() {
-        try {
-            if (!fs.existsSync(RoomList.ROOM_FILE)) {
-                fs.writeFileSync(RoomList.ROOM_FILE, JSON.stringify(["STANDARD"]), { flag: "w" })
-            }
-
+        if (fs.existsSync(RoomList.ROOM_FILE)) {
             const buffer = fs.readFileSync(RoomList.ROOM_FILE)
             if (buffer.length == 0) {
                 return
             }
 
-            const stickyRooms = JSON.parse(buffer)
-            for (let i = 0; i < stickyRooms.length; i++) {
-                let roomId = stickyRooms[i]
-                if (!this.exists(roomId)) {
-                    this.create(roomId, true)
-                }
+            const jsonData = JSON.parse(buffer)
+            for (let i = 0; i < jsonData.length; i++) {
+                const roomData = jsonData[i]
+                let room = this.create(roomData.id, true)
+                room.player = roomData.player
+                room.video = roomData.video
+                room.queue = roomData.queue
             }
-        } catch (error) {
-
         }
 
     }
 
     save() {
-        let stickyRooms = []
+        let rooms = []
         this.forEach((room) => {
             if (room.sticky) {
-                stickyRooms.push(room.id)
+                room.player.playing = false
+                rooms.push(room)
             }
         })
-        fs.writeFileSync(RoomList.ROOM_FILE, JSON.stringify(stickyRooms))
+        fs.writeFileSync(RoomList.ROOM_FILE, JSON.stringify(rooms))
     }
 
     random() {
