@@ -78,23 +78,31 @@ export default function Player({
             youtubeRef.current.seekTo(time)
         }
     }, [time])
-    
+
     useEffect(() => {
-        if(deviceType === "desktop") {
+        if (deviceType === "desktop") {
             setVolume(JSON.parse(localStorage.getItem("volume") ?? "0.25"))
         } else {
             setVolume(1)
         }
     }, [deviceType])
-    
+
     useEffect(() => {
-        if(document.fullscreenElement) {
-            setAmbilight(false) 
-        } else {
-            setAmbilight(JSON.parse(localStorage.getItem("ambilight") ?? "true"))
+        const handleFullscreen = () => {
+            if (document.fullscreenElement) {
+                setAmbilight(false)
+            } else {
+                setAmbilight(JSON.parse(localStorage.getItem("ambilight") ?? "true"))
+            }
         }
-    }, [document.fullscreenElement])
-    
+
+        document.addEventListener("fullscreenchange", handleFullscreen)
+
+        return () => {
+            document.removeEventListener("fullscreenchange", handleFullscreen)
+        }
+    }, [])
+
     return (
         <div className="player" ref={playerRef}>
             {
