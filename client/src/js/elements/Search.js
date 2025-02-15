@@ -35,6 +35,12 @@ export default function Search({
         setSearchChanged(false)
     }
 
+    const handleSearchClearClick = () => {
+        setHide(true)
+        setSearchTerm("")
+        setSearchChanged(true)
+    }
+
     const handleSearchInputEnter = (event) => {
         if (event.key !== "Enter") {
             return
@@ -98,6 +104,10 @@ export default function Search({
                 onKeyDown={handleSearchInputEnter}
                 onPaste={handleSearchInputPaste}
             />
+            {
+                searchTerm !== "" &&
+                <button className="search-clear" onClick={handleSearchClearClick} />
+            }
             <button className="search-button icon-magnifying-glass" onClick={handleSearchButtonClick}></button>
             <div className={`search-results${hide ? " hide" : ""}`}>
                 {
