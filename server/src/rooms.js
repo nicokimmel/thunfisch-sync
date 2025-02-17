@@ -119,6 +119,10 @@ export class RoomList {
         this.list[roomId] = room
         return room
     }
+    
+    remove(roomId) {
+        delete this.list[roomId]
+    }
 
     get(roomId) {
         return this.list[roomId]
@@ -134,10 +138,6 @@ export class RoomList {
     valid(roomId) {
         const regex = new RegExp(`^[${RoomList.VALID_CHARACTERS}]{8}$`)
         return regex.test(roomId)
-    }
-
-    remove(roomId) {
-        delete this.list[roomId]
     }
 
     forEach(callback) {
@@ -174,6 +174,10 @@ export class RoomList {
             }
         })
         fs.writeFileSync(RoomList.ROOM_FILE, JSON.stringify(rooms))
+    }
+    
+    print() {
+        console.table(this.list)
     }
 
     random() {
