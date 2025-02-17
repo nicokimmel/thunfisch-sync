@@ -44,14 +44,14 @@ export default function App() {
   return (
     <>
       <header>
-        <span className="logo">
+        <a href="/" className="logo">
           <img src="/icons/android-icon-48x48.png" />
           SYNC
           {
             connected === false &&
             <span className="icon-bolt-lightning" />
           }
-        </span>
+        </a>
         <Spacer />
         <Search
           results={search.results}
