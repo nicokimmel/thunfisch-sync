@@ -96,7 +96,6 @@ export default function Search({
         <div className={"search"} ref={searchResultRef}>
             <input
                 className={"search-input"}
-                type="search"
                 placeholder="Suchen"
                 value={searchTerm}
                 onInput={handleSearchInput}
