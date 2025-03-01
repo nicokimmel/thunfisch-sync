@@ -92,10 +92,14 @@ export default function useSync(roomId) {
         if (!roomId) {
             return
         }
-
+        
+        socket.emit("join", roomId)
+        
         socket.on("connect", () => {
-            console.log("(RE)CONNECTED! SENDING HANDSHAKE")
-            socket.emit("join", roomId)
+            if(!connected) {
+                console.log("(RE)CONNECTED! SENDING HANDSHAKE")
+                socket.emit("join", roomId)
+            }
         })
 
         socket.on("disconnect", () => {
