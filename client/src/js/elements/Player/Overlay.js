@@ -24,7 +24,7 @@ export default function Overlay({
     const handleLock = () => {
         setLock(!lock)
     }
-    
+
     const handleOptions = () => {
         setOptions(!options)
     }

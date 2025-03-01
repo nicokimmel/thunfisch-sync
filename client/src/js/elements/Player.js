@@ -2,6 +2,7 @@ import "../../scss/elements/player.scss"
 
 import { useRef, useState, useEffect } from "react"
 
+import { CSSTransition } from "react-transition-group"
 import ReactPlayer from "react-player"
 
 import Overlay from "./Player/Overlay"
@@ -19,12 +20,15 @@ export default function Player({
 }) {
     const playerRef = useRef(null)
     const youtubeRef = useRef(null)
+    
+    const hoverTimeoutRef = useRef(null)
 
     const [ready, setReady] = useState(false)
     const [muteOverlay, setMuteOverlay] = useState(true)
     const [mute, setMute] = useState(true)
     const [volume, setVolume] = useState(JSON.parse(localStorage.getItem("volume") ?? "0.25"))
     const [ambilight, setAmbilight] = useState(JSON.parse(localStorage.getItem("ambilight") ?? "true"))
+    const [hover, setHover] = useState(true)
 
     const handleMuteOverlay = () => {
         setMuteOverlay(false)
@@ -72,6 +76,25 @@ export default function Player({
         }
     }
 
+    const handleMouseEnter = () => {
+        setHover(true)
+    }
+
+    const handleMouseLeave = () => {
+        setHover(false)
+        clearTimeout(hoverTimeoutRef.current)
+    }
+
+    const handleMouseMove = () => {
+        setHover(true)
+        document.body.style.cursor = ""
+        clearTimeout(hoverTimeoutRef.current)
+        hoverTimeoutRef.current = setTimeout(() => {
+            setHover(false)
+            document.body.style.cursor = "none"
+        }, 2000)
+    }
+
     useEffect(() => {
         if (Math.abs(time - currentTime) > 2) {
             setCurrentTime(time)
@@ -104,7 +127,12 @@ export default function Player({
     }, [])
 
     return (
-        <div className="player" ref={playerRef}>
+        <div className={"player"}
+            ref={playerRef}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onMouseMove={handleMouseMove}
+        >
             {
                 ambilight && deviceType === "desktop" &&
                 <Ambilight
@@ -121,27 +149,35 @@ export default function Player({
                     <p>Zum Aufheben der Stummschaltung klicken</p>
                 </div>
             }
-            <Overlay
-                deviceType={deviceType}
-                playing={playing}
-                onPlayPause={onPlayPause}
-                mute={mute}
-                onMute={handleMute}
-                volume={volume}
-                onVolume={handleVolume}
-                currentTime={currentTime}
-                duration={duration}
-                onSeek={onSeek}
-                loop={loop}
-                onLoop={onLoop}
-                sponsorBlock={sponsorBlock}
-                onSponsorBlock={onSponsorBlock}
-                ambilight={ambilight}
-                onAmbilight={handleAmbilight}
-                speed={speed}
-                onSpeed={onSpeed}
-                onFullscreen={handleFullscreen}
-            />
+            <CSSTransition
+                in={hover}
+                timeout={250}
+                classNames="fade"
+                mountOnEnter
+                unmountOnExit
+            >
+                <Overlay
+                    deviceType={deviceType}
+                    playing={playing}
+                    onPlayPause={onPlayPause}
+                    mute={mute}
+                    onMute={handleMute}
+                    volume={volume}
+                    onVolume={handleVolume}
+                    currentTime={currentTime}
+                    duration={duration}
+                    onSeek={onSeek}
+                    loop={loop}
+                    onLoop={onLoop}
+                    sponsorBlock={sponsorBlock}
+                    onSponsorBlock={onSponsorBlock}
+                    ambilight={ambilight}
+                    onAmbilight={handleAmbilight}
+                    speed={speed}
+                    onSpeed={onSpeed}
+                    onFullscreen={handleFullscreen}
+                />
+            </CSSTransition>
             <ReactPlayer
                 className="player-iframe"
                 ref={youtubeRef}
