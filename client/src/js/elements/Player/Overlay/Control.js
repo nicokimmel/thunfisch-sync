@@ -1,5 +1,7 @@
 import "../../../../scss/elements/player/overlay/control.scss"
 
+import { usePiP } from "../../../hooks/UsePiP"
+
 import Spacer from "../../Spacer"
 import Button from "./Control/Button"
 import Volume from "./Control/Volume"
@@ -14,6 +16,12 @@ export default function Control({
     onOptions,
     onFullscreen
 }) {
+    const { openPiP } = usePiP()
+
+    const handlePiP = () => {
+        openPiP("Thunfisch Sync - Picture in Picture", window.location.href + "/pip", onMute)
+    }
+
     return (
         <div className={"player-overlay-control"}>
             <Button icon={playing ? "icon-pause" : "icon-play"} onClick={onPlayPause} />
@@ -30,6 +38,7 @@ export default function Control({
                 <span>{timeFormat(duration)}</span>
             </div>
             <Spacer type={"grow"} />
+            <Button icon={"icon-pip"} onClick={handlePiP} />
             {
                 deviceType !== "desktop" &&
                 <Button icon={lock ? "icon-lock" : "icon-unlock"} onClick={onLock} />
