@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server/src/index.js",
   "scripts": {
-    "install": "cd ./client/ && npm i && cd ../server/ && npm i",
+    "install": "cd ./client/ && npm i && cd ../client-minimal/ && npm i && cd ../server/ && npm i",
     "start": "node server/src/index.js",
     "build": "cd ./client/ && bash build.sh && cd ../client-minimal/ && bash build.sh"
   },
