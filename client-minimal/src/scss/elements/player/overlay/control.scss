@@ -1,0 +1,15 @@
+@use "../../../config/" as *;
+
+.player-overlay-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &-timestamp {
+        display: flex;
+        gap: 2px;
+        margin-left: 10px;
+        font-family: $font-family-roboto-mono;
+        font-size: .85rem;
+    }
+}

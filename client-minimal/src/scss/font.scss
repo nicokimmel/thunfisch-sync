@@ -1,0 +1,42 @@
+@use "./config/" as *;
+
+@import "../font/icomoon/style.css";
+
+@font-face {
+    font-family: $font-family-icon;
+    font-style: normal;
+    font-weight: normal;
+    src: url("../font/icomoon/fonts/icomoon.eot");
+    src: url("../font/icomoon/fonts/icomoon.eot") format("embedded-opentype"),
+        url("../font/icomoon/fonts/icomoon.ttf") format("truetype"),
+        url("../font/icomoon/fonts/icomoon.woff") format("woff"),
+        url("../font/icomoon/fonts/icomoon.svg") format("svg");
+}
+
+@font-face {
+    font-family: $font-family-poppins;
+    font-style: normal;
+    font-weight: 400;
+    src: url("../font/Poppins-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: $font-family-poppins;
+    font-style: normal;
+    font-weight: 500;
+    src: url("../font/Poppins-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: $font-family-poppins;
+    font-style: normal;
+    font-weight: 700;
+    src: url("../font/Poppins-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: $font-family-roboto-mono;
+    font-style: normal;
+    font-weight: 400;
+    src: url("../font/RobotoMono-Regular.ttf") format("truetype");
+}

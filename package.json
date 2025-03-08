@@ -5,7 +5,7 @@
   "scripts": {
     "install": "cd ./client/ && npm i && cd ../server/ && npm i",
     "start": "node server/src/index.js",
-    "build": "cd ./client/ && bash build.sh"
+    "build": "cd ./client/ && bash build.sh && cd ../client-minimal/ && bash build.sh"
   },
   "author": "",
   "license": "ISC",

@@ -1,0 +1,31 @@
+@use "./config/" as *;
+
+@import "react-range-slider-input/dist/style.css";
+@import "./helper.scss";
+@import "./font.scss";
+@import "./fade.scss";
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: $color-grey-0C;
+    font-family: $font-family-poppins, "Arial", sans-serif;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    line-height: $line-height;
+    color: $font-color;
+    overflow: hidden;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+}

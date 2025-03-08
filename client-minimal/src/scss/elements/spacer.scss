@@ -1,0 +1,9 @@
+.spacer {
+    &.grow {
+        flex-grow: 1;
+    }
+
+    &.one {
+        flex: 1;
+    }
+}

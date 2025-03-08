@@ -30,6 +30,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(express.static(path.resolve(__dirname, "..", "..", "client", "build"), { index: false }))
+app.use(express.static(path.resolve(__dirname, "..", "..", "client-minimal", "build"), { index: false }))
 
 app.set("view engine", "ejs")
 
@@ -67,6 +68,28 @@ app.get("/:roomId", (req, res) => {
   }
 
   res.render(path.resolve(__dirname, "..", "..", "client", "build", "index.ejs"), {roomId: roomId})
+})
+
+app.get("/:roomId/pip", (req, res) => {
+  const roomId = req.params.roomId
+
+  // Always use uppercase room ids
+  if (roomId !== roomId.toUpperCase()) {
+    res.redirect(`/${roomId.toUpperCase()}`)
+    return
+  }
+
+  if (!roomList.valid(roomId)) {
+    const roomId = roomList.create().id
+    res.redirect(`/${roomId}`)
+    return
+  }
+
+  if (!roomList.exists(roomId)) {
+    roomList.create(roomId)
+  }
+  
+  res.render(path.resolve(__dirname, "..", "..", "client-minimal", "build", "index.ejs"), {roomId: roomId})
 })
 
 app.get("/:roomId/manifest.json", (req, res) => {
