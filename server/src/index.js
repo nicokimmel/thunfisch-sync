@@ -75,13 +75,13 @@ app.get("/:roomId/pip", (req, res) => {
 
   // Always use uppercase room ids
   if (roomId !== roomId.toUpperCase()) {
-    res.redirect(`/${roomId.toUpperCase()}`)
+    res.redirect(`/${roomId.toUpperCase()}/pip`)
     return
   }
 
   if (!roomList.valid(roomId)) {
     const roomId = roomList.create().id
-    res.redirect(`/${roomId}`)
+    res.redirect(`/${roomId}/pip`)
     return
   }
 

@@ -10,7 +10,7 @@ import Overlay from "./Player/Overlay"
 export default function Player({
     currentTime, setCurrentTime,
     videoId, duration,
-    time, onSeek,
+    time,
     playing, onPlayPause,
     speed
 }) {
@@ -114,7 +114,6 @@ export default function Player({
                     onVolume={handleVolume}
                     currentTime={currentTime}
                     duration={duration}
-                    onSeek={onSeek}
                 />
             </CSSTransition>
             <ReactPlayer

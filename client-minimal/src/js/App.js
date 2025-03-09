@@ -11,8 +11,7 @@ export default function App() {
     connected,
     player,
     video,
-    handlePlayPause,
-    handleSeek
+    handlePlayPause
   } = useSync(roomId)
 
   const [currentTime, setCurrentTime] = useState(0)
@@ -25,7 +24,6 @@ export default function App() {
         videoId={video.id}
         duration={video.duration}
         time={player.time}
-        onSeek={handleSeek}
         playing={player.playing}
         onPlayPause={handlePlayPause}
         speed={player.speed}

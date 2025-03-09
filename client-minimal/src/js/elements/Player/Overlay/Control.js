@@ -1,6 +1,5 @@
 import "../../../../scss/elements/player/overlay/control.scss"
 
-import Spacer from "../../Spacer"
 import Button from "./Control/Button"
 import Volume from "./Control/Volume"
 
@@ -8,8 +7,7 @@ export default function Control({
     currentTime, duration,
     playing, onPlayPause,
     mute, onMute,
-    volume, onVolume,
-    lock, onLock,
+    volume, onVolume
 }) {
     return (
         <div className={"player-overlay-control"}>
@@ -25,8 +23,6 @@ export default function Control({
                 <span>/</span>
                 <span>{timeFormat(duration)}</span>
             </div>
-            <Spacer type={"grow"} />
-            <Button icon={lock ? "icon-lock" : "icon-lock-open"} onClick={onLock} />
         </div>
     )
 }

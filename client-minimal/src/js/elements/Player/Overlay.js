@@ -1,51 +1,24 @@
 import "../../../scss/elements/player/overlay.scss"
 
-import { useState } from "react"
-
-import Timeline from "./Overlay/Timeline"
 import Control from "./Overlay/Control"
 
 export default function Overlay({
     playing, onPlayPause,
     mute, onMute,
     volume, onVolume,
-    duration, currentTime, onSeek
+    duration, currentTime
 }) {
-    const [options, setOptions] = useState(false)
-    const [lock, setLock] = useState(false)
-
-    const handleLock = () => {
-        setLock(!lock)
-    }
-
-    const handleOptions = () => {
-        setOptions(!options)
-    }
-
-    const handleLockWrapper = (func) => (...args) => {
-        if (!lock) {
-            func(...args)
-        }
-    }
-
     return (
         <div className="player-overlay">
-            <Timeline
-                duration={duration}
-                currentTime={currentTime}
-                onSeek={handleLockWrapper(onSeek)}
-            />
             <Control
                 currentTime={currentTime}
                 duration={duration}
                 playing={playing}
-                onPlayPause={handleLockWrapper(onPlayPause)}
+                onPlayPause={onPlayPause}
                 mute={mute}
-                onMute={handleLockWrapper(onMute)}
+                onMute={onMute}
                 volume={volume}
-                onVolume={handleLockWrapper(onVolume)}
-                lock={lock}
-                onLock={handleLock}
+                onVolume={onVolume}
             />
         </div>
     )
