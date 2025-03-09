@@ -49,7 +49,7 @@ export default function App() {
           SYNC
           {
             connected === false &&
-            <span className="icon-bolt-lightning" />
+            <span className="icon-power-off" />
           }
         </a>
         <Spacer />

@@ -55,7 +55,7 @@ export default function Video({
                     }
                     {
                         onTrashClick &&
-                        <button className="video-info-thumbnail-button icon-trash-can" onClick={onTrashClick} />
+                        <button className="video-info-thumbnail-button icon-trash" onClick={onTrashClick} />
                     }
                 </div>
             </div>

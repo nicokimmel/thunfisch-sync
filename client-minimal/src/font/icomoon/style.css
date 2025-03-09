@@ -13,98 +13,86 @@
   text-transform: none;
 }
 
-.icon-xmark::before {
-  content: "\e917";
-}
-
-.icon-lock::before {
-  content: "\e915";
-}
-
-.icon-unlock::before {
-  content: "\e916";
-}
-
-.icon-bolt-lightning::before {
-  content: "\e914";
-}
-
-.icon-circle-user::before {
-  content: "\e913";
-}
-
-.icon-broom::before {
-  content: "\e911";
-}
-
-.icon-shuffle::before {
-  content: "\e912";
-}
-
-.icon-magnifying-glass::before {
-  content: "\e910";
-}
-
-.icon-youtube-brands::before {
-  content: "\e90f";
-}
-
-.icon-shield-halved::before {
-  content: "\e90c";
-}
-
-.icon-rotate::before {
-  content: "\e90d";
-}
-
-.icon-arrow-up-right-from-square::before {
-  content: "\e90e";
-}
-
-.icon-trash-can::before {
-  content: "\e908";
-}
-
 .icon-chevron-down::before {
-  content: "\e909";
-}
-
-.icon-chevron-up::before {
-  content: "\e90a";
-}
-
-.icon-plus::before {
-  content: "\e90b";
-}
-
-.icon-expand::before {
   content: "\e900";
 }
 
-.icon-gear::before {
+.icon-chevron-up::before {
   content: "\e901";
 }
 
-.icon-volume-xmark::before {
+.icon-circle-user::before {
   content: "\e902";
 }
 
-.icon-volume-high::before {
+.icon-external-link::before {
   content: "\e903";
 }
 
-.icon-volume-low::before {
+.icon-fullscreen::before {
   content: "\e904";
 }
 
-.icon-volume-off::before {
+.icon-lock::before {
   content: "\e905";
 }
 
-.icon-pause::before {
+.icon-lock-open::before {
   content: "\e906";
 }
 
-.icon-play::before {
+.icon-pause::before {
   content: "\e907";
+}
+
+.icon-picture-in-picture::before {
+  content: "\e908";
+}
+
+.icon-play::before {
+  content: "\e909";
+}
+
+.icon-plus::before {
+  content: "\e90a";
+}
+
+.icon-power-off::before {
+  content: "\e90b";
+}
+
+.icon-search::before {
+  content: "\e90c";
+}
+
+.icon-settings::before {
+  content: "\e90d";
+}
+
+.icon-shuffle::before {
+  content: "\e90e";
+}
+
+.icon-trash::before {
+  content: "\e90f";
+}
+
+.icon-volume-high::before {
+  content: "\e910";
+}
+
+.icon-volume-low::before {
+  content: "\e911";
+}
+
+.icon-volume-off::before {
+  content: "\e912";
+}
+
+.icon-volume-x::before {
+  content: "\e913";
+}
+
+.icon-x::before {
+  content: "\e914";
 }

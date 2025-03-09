@@ -9,7 +9,6 @@ export default function Overlay({
     playing, onPlayPause,
     mute, onMute,
     volume, onVolume,
-    onFullscreen,
     duration, currentTime, onSeek
 }) {
     const [options, setOptions] = useState(false)
@@ -47,8 +46,6 @@ export default function Overlay({
                 onVolume={handleLockWrapper(onVolume)}
                 lock={lock}
                 onLock={handleLock}
-                onOptions={handleLockWrapper(handleOptions)}
-                onFullscreen={handleLockWrapper(onFullscreen)}
             />
         </div>
     )

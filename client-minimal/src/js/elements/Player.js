@@ -42,14 +42,6 @@ export default function Player({
         }
     }
 
-    const handleFullscreen = () => {
-        if (document.fullscreenElement) {
-            document.exitFullscreen()
-        } else {
-            playerRef.current.requestFullscreen()
-        }
-    }
-
     const handleProgress = (event) => {
         setCurrentTime(Math.floor(event.playedSeconds))
     }
@@ -102,7 +94,7 @@ export default function Player({
             {
                 muteOverlay &&
                 <div className="player-mute" onClick={handleMuteOverlay}>
-                    <span className="icon-volume-xmark"></span>
+                    <span className="icon-volume-x"></span>
                     <p>Zum Aufheben der Stummschaltung klicken</p>
                 </div>
             }
@@ -123,7 +115,6 @@ export default function Player({
                     currentTime={currentTime}
                     duration={duration}
                     onSeek={onSeek}
-                    onFullscreen={handleFullscreen}
                 />
             </CSSTransition>
             <ReactPlayer

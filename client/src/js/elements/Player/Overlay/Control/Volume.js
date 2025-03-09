@@ -11,7 +11,7 @@ export default function Volume({
     mute, onMute,
     volume, onVolume
 }) {
-    const [icon, setIcon] = useState("icon-volume-xmark")
+    const [icon, setIcon] = useState("icon-volume-x")
 
     const handleVolumeSliderInput = (value) => {
         onVolume(value[1] / 100)
@@ -23,7 +23,7 @@ export default function Volume({
 
     useEffect(() => {
         if (mute) {
-            setIcon("icon-volume-xmark")
+            setIcon("icon-volume-x")
         } else {
             if (volume == 0) {
                 setIcon("icon-volume-off")

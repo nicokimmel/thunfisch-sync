@@ -17,7 +17,7 @@ export default function Queue({
                 <div className="queue-controls">
                     <p>Warteschlange</p>
                     <Spacer />
-                    <button className="icon-broom" onClick={onClearClick} />
+                    <button className="icon-trash" onClick={onClearClick} />
                     <button className="icon-shuffle" onClick={onShuffleClick} />
                 </div>
                 <div className="queue-list">

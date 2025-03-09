@@ -10,7 +10,6 @@ export default function Control({
     mute, onMute,
     volume, onVolume,
     lock, onLock,
-    onFullscreen
 }) {
     return (
         <div className={"player-overlay-control"}>
@@ -27,8 +26,7 @@ export default function Control({
                 <span>{timeFormat(duration)}</span>
             </div>
             <Spacer type={"grow"} />
-            <Button icon={lock ? "icon-lock" : "icon-unlock"} onClick={onLock} />
-            <Button icon={"icon-expand"} onClick={onFullscreen} />
+            <Button icon={lock ? "icon-lock" : "icon-lock-open"} onClick={onLock} />
         </div>
     )
 }

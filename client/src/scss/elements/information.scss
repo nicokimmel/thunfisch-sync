@@ -70,6 +70,9 @@
 
             a,
             button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 padding: 10px 15px;
                 border: none;
                 border-radius: $border-radius-25;
@@ -83,7 +86,7 @@
                 }
 
                 &::before {
-                    margin-right: 5px;
+                    margin-right: 7px;
                     font-family: $font-family-icon !important;
                 }
 

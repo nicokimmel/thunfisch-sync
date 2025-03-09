@@ -9,16 +9,6 @@ export default function Information({
     videoTitle, videoViews,
     channelImage, channelName, channelSubscribers, channelId
 }) {
-    const [shareText, setShareText] = useState("Teilen")
-
-    const handleShareClick = () => {
-        navigator.clipboard.writeText(`https://youtu.be/${videoId}?t=${currentTime}`)
-        setShareText("Kopiert!")
-        setTimeout(() => {
-            setShareText("Teilen")
-        }, 2000)
-    }
-
     return (
         <div className={"information"}>
             <div className={"information-top"}>
@@ -35,8 +25,7 @@ export default function Information({
                     </div>
                 </a>
                 <div className={"information-bottom-buttons"}>
-                    <a className={"icon-youtube-brands"} href={`https://www.youtube.com/watch?v=${videoId}`} target={"_blank"}>YouTube</a>
-                    <a className={"icon-arrow-up-right-from-square"} onClick={handleShareClick}>{shareText}</a>
+                    <a className={"icon-external-link"} href={`https://www.youtube.com/watch?v=${videoId}&t=${currentTime}`} target={"_blank"}>YouTube</a>
                 </div>
             </div>
         </div>

@@ -107,7 +107,7 @@ export default function Search({
                 searchTerm !== "" &&
                 <button className="search-clear" onClick={handleSearchClearClick} />
             }
-            <button className="search-button icon-magnifying-glass" onClick={handleSearchButtonClick}></button>
+            <button className="search-button icon-search" onClick={handleSearchButtonClick}></button>
             <div className={`search-results${hide ? " hide" : ""}`}>
                 {
                     type === "p" &&
