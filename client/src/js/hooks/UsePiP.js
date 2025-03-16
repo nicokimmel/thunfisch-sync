@@ -21,11 +21,6 @@ export function usePiP(aspectRatio = 16 / 9, width = 640, height = 360) {
             pipRef.current = popup
             setIsPiPActive(true)
             onAction()
-            popup.addEventListener("resize", () => {
-                const newWidth = popup.innerWidth
-                const newHeight = Math.round(newWidth / aspectRatio)
-                popup.resizeTo(newWidth, newHeight)
-            })
             startPiPClosedCheck()
         }
     }
