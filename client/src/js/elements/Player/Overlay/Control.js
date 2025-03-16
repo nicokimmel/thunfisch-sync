@@ -38,7 +38,10 @@ export default function Control({
                 <span>{timeFormat(duration)}</span>
             </div>
             <Spacer type={"grow"} />
-            <Button icon={"icon-picture-in-picture"} onClick={handlePiP} />
+            {
+                deviceType === "desktop" &&
+                <Button icon={"icon-picture-in-picture"} onClick={handlePiP} />
+            }
             {
                 deviceType !== "desktop" &&
                 <Button icon={lock ? "icon-lock" : "icon-lock-open"} onClick={onLock} />
