@@ -33,6 +33,7 @@ export default function useSync(roomId) {
         duration: 0,
         tags: [],
         views: 0,
+        language: "en",
     })
     const [queue, setQueue] = useState([])
     const [search, setSearch] = useState({

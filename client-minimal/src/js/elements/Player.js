@@ -8,6 +8,7 @@ import ReactPlayer from "react-player"
 import Overlay from "./Player/Overlay"
 
 export default function Player({
+    language,
     currentTime, setCurrentTime,
     videoId, duration,
     time,
@@ -18,6 +19,8 @@ export default function Player({
     const youtubeRef = useRef(null)
     
     const hoverTimeoutRef = useRef(null)
+    
+    const [playerKey, setPlayerKey] = useState(Date.now())
 
     const [ready, setReady] = useState(false)
     const [muteOverlay, setMuteOverlay] = useState(true)
@@ -84,6 +87,12 @@ export default function Player({
         }
     }, [time])
 
+    useEffect(() => {
+        // Workaround for remounting player
+        // in order to reload youtube parameters
+        setPlayerKey(Date.now())
+    }, [language])
+    
     return (
         <div className={"player"}
             ref={playerRef}
@@ -117,6 +126,7 @@ export default function Player({
                 />
             </CSSTransition>
             <ReactPlayer
+                key={playerKey}
                 className="player-iframe"
                 ref={youtubeRef}
                 width="100%"
@@ -134,7 +144,9 @@ export default function Player({
                             modestbranding: 1,
                             playsinline: 1,
                             rel: 0,
-                            showinfo: 0
+                            showinfo: 0,
+                            hl: language,
+                            persist_hl: 1
                         },
                         embedOptions: {
                             host: "https://www.youtube-nocookie.com"

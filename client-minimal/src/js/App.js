@@ -19,6 +19,7 @@ export default function App() {
   return (
     <>
       <Player
+        language={video.language}
         currentTime={currentTime}
         setCurrentTime={setCurrentTime}
         videoId={video.id}
