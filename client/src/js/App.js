@@ -66,6 +66,7 @@ export default function App() {
         <div>
           <Player
             deviceType={deviceType}
+            language={video.language}
             currentTime={currentTime}
             setCurrentTime={setCurrentTime}
             videoId={video.id}

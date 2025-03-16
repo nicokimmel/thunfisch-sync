@@ -33,7 +33,8 @@ export default class YouTube {
                     thumbnail: video.snippet.thumbnails.medium.url,
                     duration: duration,
                     tags: video.snippet.tags,
-                    views: video.statistics.viewCount
+                    views: video.statistics.viewCount,
+                    language: video.snippet.defaultAudioLanguage
                 })
                 channelIdList.push(video.snippet.channelId)
             }

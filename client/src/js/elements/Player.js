@@ -10,6 +10,7 @@ import Ambilight from "./Player/Ambilight"
 
 export default function Player({
     deviceType,
+    language,
     currentTime, setCurrentTime,
     videoId, duration,
     time, onSeek,
@@ -23,6 +24,8 @@ export default function Player({
     
     const hoverTimeoutRef = useRef(null)
 
+    const [playerKey, setPlayerKey] = useState(Date.now())
+    
     const [ready, setReady] = useState(false)
     const [muteOverlay, setMuteOverlay] = useState(true)
     const [mute, setMute] = useState(true)
@@ -125,6 +128,12 @@ export default function Player({
             document.removeEventListener("fullscreenchange", handleFullscreen)
         }
     }, [])
+    
+    useEffect(() => {
+        // Workaround for remounting player
+        // in order to reload youtube parameters
+        setPlayerKey(Date.now())
+    }, [language])
 
     return (
         <div className={"player"}
@@ -179,6 +188,7 @@ export default function Player({
                 />
             </CSSTransition>
             <ReactPlayer
+                key={playerKey}
                 className="player-iframe"
                 ref={youtubeRef}
                 width="100%"
@@ -196,7 +206,9 @@ export default function Player({
                             modestbranding: 1,
                             playsinline: 1,
                             rel: 0,
-                            showinfo: 0
+                            showinfo: 0,
+                            hl: language,
+                            persist_hl: 1
                         },
                         embedOptions: {
                             host: "https://www.youtube-nocookie.com"
