@@ -152,7 +152,7 @@ export default function Player({
                 />
             }
             {
-                muteOverlay &&
+                (ready && muteOverlay) &&
                 <div className="player-mute" onClick={handleMuteOverlay}>
                     <span className="icon-volume-x"></span>
                     <p>Zum Aufheben der Stummschaltung klicken</p>
