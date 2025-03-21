@@ -7,7 +7,7 @@ import RangeSlider from "react-range-slider-input"
 const SPEED_TABLE = [0.25, 0.5, 1, 1.25, 1.5, 2]
 
 export default function Speed({ speed, onSpeed }) {
-    const [value, setValue] = useState([0, 0])
+    const [value, setValue] = useState([0, 2])
 
     const handleInputEnd = () => {
         onSpeed(SPEED_TABLE[value[1]])
@@ -20,7 +20,7 @@ export default function Speed({ speed, onSpeed }) {
     return (
         <div className={"player-overlay-options-speed"}>
             <RangeSlider
-                defaultValue={[0, 0]}
+                defaultValue={[0, 2]}
                 thumbsDisabled={[true, false]}
                 rangeSlideDisabled={true}
                 min={0}
