@@ -2,6 +2,8 @@ import "../../../scss/elements/player/overlay.scss"
 
 import { useState } from "react"
 
+import { CSSTransition } from "react-transition-group"
+
 import Timeline from "./Overlay/Timeline"
 import Control from "./Overlay/Control"
 import Options from "./Overlay/Options"
@@ -21,6 +23,27 @@ export default function Overlay({
     const [options, setOptions] = useState(false)
     const [lock, setLock] = useState(false)
 
+    const [indicator, setIndicator] = useState(false)
+    const [indicatorTimeout, setIndicatorTimeout] = useState(null)
+
+    const handleClick = (event) => {
+        if(event.currentTarget !== event.target) {
+            return
+        }
+        
+        if (deviceType !== "desktop") {
+            return
+        }
+        
+        onPlayPause()
+        setIndicator(true)
+        clearTimeout(indicatorTimeout)
+        setIndicatorTimeout(setTimeout(() => {
+            setIndicatorTimeout(null)
+            setIndicator(false)
+        }, 300))
+    }
+
     const handleLock = () => {
         setLock(!lock)
     }
@@ -36,7 +59,19 @@ export default function Overlay({
     }
 
     return (
-        <div className="player-overlay">
+        <div
+            className="player-overlay"
+            onClick={handleClick}
+        >
+            <CSSTransition
+                in={indicator}
+                timeout={100}
+                classNames="scale"
+                mountOnEnter
+                unmountOnExit
+            >
+                <span className={`asdfg ${playing ? "icon-play" : "icon-pause"}`} />
+            </CSSTransition>
             {
                 options &&
                 <Options
