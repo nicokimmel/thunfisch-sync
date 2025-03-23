@@ -3,10 +3,14 @@
 @import "react-range-slider-input/dist/style.css";
 @import "./helper.scss";
 @import "./font.scss";
-@import "./fade.scss";
+@import "./transitions.scss";
 
 * {
     box-sizing: border-box;
+    
+    &::selection {
+        background-color: $color-transparent-active;
+    }
 }
 
 html,

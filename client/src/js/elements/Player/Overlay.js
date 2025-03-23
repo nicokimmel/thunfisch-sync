@@ -70,7 +70,7 @@ export default function Overlay({
                 mountOnEnter
                 unmountOnExit
             >
-                <span className={`asdfg ${playing ? "icon-play" : "icon-pause"}`} />
+                <span className={`indicator ${playing ? "icon-play" : "icon-pause"}`} />
             </CSSTransition>
             {
                 options &&
