@@ -11,7 +11,11 @@ export default function UsePiP(roomId) {
             window.documentPictureInPicture.window.close()
         }
 
-        window.documentPictureInPicture.requestWindow().then((pipWindow) => {
+        window.documentPictureInPicture.requestWindow({
+            preferInitialWindowPlacement: true,
+            width: 520,
+            height: 292
+        }).then((pipWindow) => {
             const handleClose = () => {
                 setIsPiPActive(false)
                 handleReady()

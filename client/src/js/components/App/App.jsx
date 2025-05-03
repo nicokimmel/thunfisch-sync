@@ -70,7 +70,7 @@ export default function App() {
                             <div className="player">
                                 <div className="player-pip">
                                     <span className="icon-picture-in-picture"></span>
-                                    <p>Stream wird im Modus "Bild im Bild" wiedergegeben</p>
+                                    <p>Video wird im Modus "Bild im Bild" wiedergegeben</p>
                                 </div>
                             </div>
                             :

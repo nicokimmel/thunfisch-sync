@@ -87,14 +87,11 @@ export default function Overlay({
                     onSpeed={onSpeed}
                 />
             }
-            {
-                deviceType !== "pip" &&
-                <Timeline
-                    duration={duration}
-                    currentTime={currentTime}
-                    onSeek={handleLockWrapper(onSeek)}
-                />
-            }
+            <Timeline
+                duration={duration}
+                currentTime={currentTime}
+                onSeek={handleLockWrapper(onSeek)}
+            />
             <Control
                 deviceType={deviceType}
                 currentTime={currentTime}

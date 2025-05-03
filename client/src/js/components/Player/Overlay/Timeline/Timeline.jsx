@@ -21,6 +21,7 @@ export default function Timeline({ duration, currentTime, onSeek }) {
     const handleSeekEnd = () => {
         onSeek(value[1])
         setSeeking(false)
+        console.log("lelelele " + value[1])
     }
 
     useEffect(() => {

@@ -2,7 +2,7 @@ import "./PiP.scss"
 
 import { useState } from "react"
 
-import useSync from "../../hooks/UseSync.jsx"
+import UseSync from "../../hooks/UseSync.jsx"
 
 import Player from "../Player/Player.jsx"
 
@@ -15,7 +15,7 @@ export default function PiP({ roomId }) {
     handleSpeed,
     handleLoop,
     handleSponsorBlock,
-  } = useSync(roomId)
+  } = UseSync(roomId)
 
   const [currentTime, setCurrentTime] = useState(0)
 

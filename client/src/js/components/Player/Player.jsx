@@ -92,11 +92,11 @@ export default function Player({
 
     const handleMouseMove = () => {
         setHover(true)
-        document.body.style.cursor = ""
+        playerRef.current.style.cursor = ""
         clearTimeout(hoverTimeoutRef.current)
         hoverTimeoutRef.current = setTimeout(() => {
             setHover(false)
-            document.body.style.cursor = "none"
+            playerRef.current.style.cursor = "none"
         }, 2000)
     }
 
