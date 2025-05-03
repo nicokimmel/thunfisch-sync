@@ -2,11 +2,9 @@
 
 Schau dir Youtube Videos mit deinen Freunden an. 🐟  
   
-Es handelt sich um eine simple Watch2Gether Alternative, das bedeutet man kann sich YouTube Videos synchron mit seinen Freunden anschauen. W2G finde ich persönlich zu altgebacken und zu unübersichtlich.
+Es handelt sich um eine simple Watch2Gether Alternative, das bedeutet man kann sich YouTube Videos synchron mit seinen Freunden anschauen.
 
 ## Installation
-
-_Aktuell wird für den Client ein Bash Skript genutzt um die aus React entstandene `index.html` in ein `.ejs` Template umzuwandeln. Falls Windows genutzt wird muss dieser Schritt per Hand gemacht oder das Skript angepasst werden. Dazu ggf. ChatGPT fragen._
 
 1. Git Repository klonen
 2. Node Dependencies mit `npm run install` installieren
@@ -45,19 +43,3 @@ server {
 ```
 
 6. Die Applikation mit `npm start` ausführen
-
-## ToDo
-
-* Close player options after overlay hover ends
-* Move currentTime from app to player
-* Add search input reset button
-* Add button to skip 10s
-* Add button to skip video
-* Add mobile player lock
-* Add loading placeholder for search items
-* Add returns to useEffect()s
-* Add CLI (create and save rooms etc)
-* Implement channel filter
-* Check video objects in server
-* Move sponsorblock away from server video event and loop
-* Add logging
