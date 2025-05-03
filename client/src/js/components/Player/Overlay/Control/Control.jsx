@@ -36,11 +36,16 @@ export default function Control({
                 <Button icon={"icon-picture-in-picture"} onClick={onPiP} />
             }
             {
-                deviceType !== "desktop" &&
+                deviceType !== "desktop" && deviceType !== "pip" &&
                 <Button icon={lock ? "icon-lock" : "icon-lock-open"} onClick={onLock} />
             }
-            <Button icon={"icon-settings"} onClick={onOptions} />
-            <Button icon={"icon-fullscreen"} onClick={onFullscreen} />
+            {
+                deviceType !== "pip" &&
+                <>
+                    <Button icon={"icon-settings"} onClick={onOptions} />
+                    <Button icon={"icon-fullscreen"} onClick={onFullscreen} />
+                </>
+            }
         </div>
     )
 }

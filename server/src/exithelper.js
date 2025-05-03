@@ -3,12 +3,12 @@ export default class ExitHelper {
         this.rooms = roomList
         this.events()
     }
-    
+
     onExit() {
         this.rooms.save()
         process.exit(0)
     }
-    
+
     events() {
         process.stdin.resume()
         process.on("exit", this.onExit.bind(this))

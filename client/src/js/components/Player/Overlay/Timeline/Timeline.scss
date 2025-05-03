@@ -16,28 +16,28 @@ $range-slider-background-hover: linear-gradient(0deg, transparent 25%, rgba($col
         flex-grow: 1;
         height: 8px;
         background: $range-slider-background;
-    
+
         .range-slider__thumb[data-lower] {
             width: 0;
         }
-        
+
         .range-slider__thumb[data-upper] {
             width: 10px;
             height: 10px;
             background: $range-slider-progress;
         }
-    
+
         .range-slider__range {
             height: 50%;
             border-radius: $border-radius-8;
             background: $range-slider-progress;
         }
-    
+
         &:hover {
             background: $range-slider-background-hover;
         }
     }
-    
+
     &-tooltip {
         position: absolute;
         bottom: 20px;

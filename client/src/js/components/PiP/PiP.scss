@@ -1,0 +1,24 @@
+@use "@SCSS/config/" as *;
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#pip {
+    width: 100%;
+    height: 100%;
+
+    .player {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: inherit;
+
+        &-overlay,
+        &-iframe {
+            border-radius: 0;
+        }
+    }
+}

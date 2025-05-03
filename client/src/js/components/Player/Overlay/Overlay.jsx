@@ -28,14 +28,14 @@ export default function Overlay({
     const [indicatorTimeout, setIndicatorTimeout] = useState(null)
 
     const handleClick = (event) => {
-        if(event.currentTarget !== event.target) {
+        if (event.currentTarget !== event.target) {
             return
         }
-        
-        if (deviceType !== "desktop") {
+
+        if (deviceType !== "desktop" && deviceType !== "pip") {
             return
         }
-        
+
         onPlayPause()
         setIndicator(true)
         clearTimeout(indicatorTimeout)
@@ -87,11 +87,14 @@ export default function Overlay({
                     onSpeed={onSpeed}
                 />
             }
-            <Timeline
-                duration={duration}
-                currentTime={currentTime}
-                onSeek={handleLockWrapper(onSeek)}
-            />
+            {
+                deviceType !== "pip" &&
+                <Timeline
+                    duration={duration}
+                    currentTime={currentTime}
+                    onSeek={handleLockWrapper(onSeek)}
+                />
+            }
             <Control
                 deviceType={deviceType}
                 currentTime={currentTime}

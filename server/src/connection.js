@@ -108,10 +108,10 @@ export default class Connection {
                     room.remove(queuePos)
                     this.io.in(room.id).emit("queue", room.queue)
                 }
-                
+
                 room.play(videoList[0])
                 this.io.in(room.id).emit("video", room.player, room.video)
-                
+
                 this.sponsorBlock.load(room.video.id, (segmentList) => {
                     room.player.sponsorBlock.segments = segmentList
                 })
@@ -141,13 +141,13 @@ export default class Connection {
                 room.move(from, to)
                 this.io.in(room.id).emit("queue", room.queue)
             })
-            
+
             client.on("queue-clear", () => {
                 if (!room) { return }
                 room.clear()
                 this.io.in(room.id).emit("queue", room.queue)
             })
-            
+
             client.on("queue-shuffle", () => {
                 if (!room) { return }
                 room.shuffle()

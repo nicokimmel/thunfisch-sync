@@ -1,16 +1,12 @@
-import "./App.scss"
+import "./PiP.scss"
 
 import { useState } from "react"
 
-import useDevice from "../../hooks/UseDevice.jsx"
-import useURL from "../../hooks/UseURL.jsx"
 import useSync from "../../hooks/UseSync.jsx"
 
 import Player from "../Player/Player.jsx"
 
-export default function App() {
-  const [deviceType] = useDevice()
-  const [roomId, type] = useURL()
+export default function PiP({ roomId }) {
   const {
     player,
     video,
@@ -25,7 +21,7 @@ export default function App() {
 
   return (
     <Player
-      deviceType={deviceType}
+      deviceType={"pip"}
       language={video.language}
       currentTime={currentTime}
       setCurrentTime={setCurrentTime}

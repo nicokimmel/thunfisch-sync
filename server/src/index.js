@@ -34,51 +34,51 @@ app.use(express.static(path.resolve(__dirname, "..", "..", "client", "dist"), { 
 app.set("view engine", "ejs")
 
 app.get("/robots.txt", (req, res) => {
-  res.type("text/plain")
-  res.send("User-agent: *\nDisallow: /")
+    res.type("text/plain")
+    res.send("User-agent: *\nDisallow: /")
 })
 
 app.get("/favicon.ico", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "..", "client", "dist", "icons", "favicon.ico"))
+    res.sendFile(path.join(__dirname, "..", "..", "client", "dist", "icons", "favicon.ico"))
 })
 
 app.get("/", (req, res) => {
-  const roomId = roomList.create().id
-  res.redirect(`/${roomId}`)
+    const roomId = roomList.create().id
+    res.redirect(`/${roomId}`)
 })
 
 app.get("/:roomId", (req, res) => {
-  const roomId = req.params.roomId
+    const roomId = req.params.roomId
 
-  // Always use uppercase room ids
-  if (roomId !== roomId.toUpperCase()) {
-    res.redirect(`/${roomId.toUpperCase()}`)
-    return
-  }
+    // Always use uppercase room ids
+    if (roomId !== roomId.toUpperCase()) {
+        res.redirect(`/${roomId.toUpperCase()}`)
+        return
+    }
 
-  if (!roomList.valid(roomId)) {
-    const roomId = roomList.create().id
-    res.redirect(`/${roomId}`)
-    return
-  }
+    if (!roomList.valid(roomId)) {
+        const roomId = roomList.create().id
+        res.redirect(`/${roomId}`)
+        return
+    }
 
-  if (!roomList.exists(roomId)) {
-    roomList.create(roomId)
-  }
+    if (!roomList.exists(roomId)) {
+        roomList.create(roomId)
+    }
 
-  res.render(path.resolve(__dirname, "..", "..", "client", "dist", "index.ejs"), {roomId: roomId})
+    res.render(path.resolve(__dirname, "..", "..", "client", "dist", "index.ejs"), { roomId: roomId })
 })
 
 app.get("/:roomId/manifest.json", (req, res) => {
-  const roomId = req.params.roomId
-  manifest.start_url = `/${roomId}`
-  res.json(manifest)
+    const roomId = req.params.roomId
+    manifest.start_url = `/${roomId}`
+    res.json(manifest)
 })
 
 server.listen(PORT, () => {
-  roomList.create("STANDARD", true)
-  sync.loop()
-  cli.logo()
-  console.log(` Server is running on http://localhost:${PORT}\n`)
-  cli.start()
+    roomList.create("STANDARD", true)
+    sync.loop()
+    cli.logo()
+    console.log(` Server is running on http://localhost:${PORT}\n`)
+    cli.start()
 })

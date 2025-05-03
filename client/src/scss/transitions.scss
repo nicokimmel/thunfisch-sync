@@ -7,7 +7,7 @@
             transition: opacity 200ms;
         }
     }
-    
+
     &-exit {
         opacity: 1;
 
@@ -16,7 +16,7 @@
             transition: opacity 200ms;
         }
     }
-    
+
 }
 
 .scale {
@@ -30,7 +30,7 @@
             transition: opacity 150ms linear, scale 150ms linear;
         }
     }
-    
+
     &-exit {
         opacity: .5;
         scale: 2;
@@ -40,5 +40,5 @@
             transition: opacity 100ms linear;
         }
     }
-    
+
 }

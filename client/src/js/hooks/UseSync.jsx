@@ -93,11 +93,11 @@ export default function UseSync(roomId) {
         if (!roomId) {
             return
         }
-        
+
         socket.emit("join", roomId)
-        
+
         socket.on("connect", () => {
-            if(!connected) {
+            if (!connected) {
                 console.log("(RE)CONNECTED! SENDING HANDSHAKE")
                 socket.emit("join", roomId)
             }

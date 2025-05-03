@@ -9,7 +9,7 @@ export default function Timeline({ duration, currentTime, onSeek }) {
 
     const [value, setValue] = useState([0, 0])
     const [seeking, setSeeking] = useState(false)
-    
+
     const [hoverValue, setHoverValue] = useState(0)
     const [tooltipHover, setTooltipHover] = useState(false)
     const [tooltipPosition, setTooltipPosition] = useState(0)

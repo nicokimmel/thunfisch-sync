@@ -1,13 +1,13 @@
 {
-  "name": "thunfisch-sync-react",
-  "version": "1.0.0",
-  "main": "./server/src/index.js",
-  "scripts": {
-    "install": "(cd ./client && npm i) && (cd ./server && npm i)",
-    "start": "node ./server/src/index.js",
-    "build": "(cd ./client/ && npm run build)"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+    "name": "thunfisch-sync-react",
+    "version": "1.0.0",
+    "main": "./server/src/index.js",
+    "scripts": {
+        "install": "(cd ./client && npm i) && (cd ./server && npm i)",
+        "start": "node ./server/src/index.js",
+        "build": "(cd ./client/ && npm run build)"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": ""
 }

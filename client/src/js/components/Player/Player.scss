@@ -6,13 +6,15 @@
     width: 100%;
     aspect-ratio: 16/9;
     transition: aspect-ratio .3s;
+    user-select: none;
 
     &>* {
         grid-area: 1 / 1;
     }
 }
 
-.player-mute {
+.player-mute,
+.player-pip {
     z-index: $z-index-player-mute;
     display: flex;
     flex-direction: column;
@@ -23,8 +25,12 @@
     cursor: pointer;
 
     >span {
-        font-size: 2rem;
+        font-size: 3rem;
     }
+}
+
+.player-pip {
+    cursor: default;
 }
 
 $iframe-offset: 200px;

@@ -1,12 +1,10 @@
 import "./Player.scss"
 
 import { useRef, useState, useEffect } from "react"
-import ReactDOM from "react-dom"
 
 import { CSSTransition } from "react-transition-group"
 import ReactPlayer from "react-player"
 
-import AppPiP from "../App/AppPiP.jsx"
 import Overlay from "./Overlay/Overlay.jsx"
 import Ambilight from "./Ambilight/Ambilight.jsx"
 
@@ -19,7 +17,8 @@ export default function Player({
     playing, onPlayPause,
     speed, onSpeed,
     loop, onLoop,
-    sponsorBlock, onSponsorBlock
+    sponsorBlock, onSponsorBlock,
+    onPiP
 }) {
     const playerRef = useRef(null)
     const youtubeRef = useRef(null)
@@ -55,27 +54,6 @@ export default function Player({
     const handleAmbilight = () => {
         localStorage.setItem("ambilight", !ambilight)
         setAmbilight(!ambilight)
-    }
-
-    const handlePiP = () => {
-        if (window.documentPictureInPicture.window) {
-            window.documentPictureInPicture.window.close()
-        }
-
-        // eslint-disable-next-line no-undef
-        documentPictureInPicture.requestWindow().then((pipWindow) => {
-            document.querySelectorAll("link[rel=\"stylesheet\"]").forEach(link => {
-                pipWindow.document.head.appendChild(link.cloneNode(true));
-            })
-
-            const pipDiv = pipWindow.document.createElement("div");
-            pipDiv.setAttribute("id", "pip-root");
-            pipWindow.document.body.append(pipDiv);
-            const pipRoot = ReactDOM.createRoot(
-                pipWindow.document.getElementById("pip-root")
-            );
-            pipRoot.render(<AppPiP />);
-        })
     }
 
     const handleFullscreen = () => {
@@ -130,7 +108,7 @@ export default function Player({
     }, [time])
 
     useEffect(() => {
-        if (deviceType === "desktop") {
+        if (deviceType === "desktop" || deviceType === "pip") {
             setVolume(JSON.parse(localStorage.getItem("volume") ?? "0.25"))
         } else {
             setVolume(1)
@@ -156,6 +134,7 @@ export default function Player({
     useEffect(() => {
         // Workaround for remounting player
         // in order to reload youtube parameters
+        // to force language.
         setPlayerKey(Date.now())
     }, [language])
 
@@ -208,7 +187,7 @@ export default function Player({
                     onAmbilight={handleAmbilight}
                     speed={speed}
                     onSpeed={onSpeed}
-                    onPiP={handlePiP}
+                    onPiP={onPiP}
                     onFullscreen={handleFullscreen}
                 />
             </CSSTransition>

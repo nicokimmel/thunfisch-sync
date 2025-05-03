@@ -42,7 +42,7 @@ export default function Volume({
                 onClick={handleVolumeButtonClick}
             />
             {
-                deviceType === "desktop" &&
+                (deviceType === "desktop" || deviceType === "pip") &&
                 <RangeSlider
                     defaultValue={[0, localStorage.getItem("volume") * 100 || 25]}
                     thumbsDisabled={[true, false]}
