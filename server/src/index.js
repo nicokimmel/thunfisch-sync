@@ -29,8 +29,7 @@ new ExitHelper(roomList)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use(express.static(path.resolve(__dirname, "..", "..", "client", "build"), { index: false }))
-app.use(express.static(path.resolve(__dirname, "..", "..", "client-minimal", "build"), { index: false }))
+app.use(express.static(path.resolve(__dirname, "..", "..", "client", "dist"), { index: false }))
 
 app.set("view engine", "ejs")
 
@@ -40,7 +39,7 @@ app.get("/robots.txt", (req, res) => {
 })
 
 app.get("/favicon.ico", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "..", "client", "build", "images", "favicon.ico"))
+  res.sendFile(path.join(__dirname, "..", "..", "client", "dist", "icons", "favicon.ico"))
 })
 
 app.get("/", (req, res) => {
@@ -67,29 +66,7 @@ app.get("/:roomId", (req, res) => {
     roomList.create(roomId)
   }
 
-  res.render(path.resolve(__dirname, "..", "..", "client", "build", "index.ejs"), {roomId: roomId})
-})
-
-app.get("/:roomId/pip", (req, res) => {
-  const roomId = req.params.roomId
-
-  // Always use uppercase room ids
-  if (roomId !== roomId.toUpperCase()) {
-    res.redirect(`/${roomId.toUpperCase()}/pip`)
-    return
-  }
-
-  if (!roomList.valid(roomId)) {
-    const roomId = roomList.create().id
-    res.redirect(`/${roomId}/pip`)
-    return
-  }
-
-  if (!roomList.exists(roomId)) {
-    roomList.create(roomId)
-  }
-  
-  res.render(path.resolve(__dirname, "..", "..", "client-minimal", "build", "index.ejs"), {roomId: roomId})
+  res.render(path.resolve(__dirname, "..", "..", "client", "dist", "index.ejs"), {roomId: roomId})
 })
 
 app.get("/:roomId/manifest.json", (req, res) => {

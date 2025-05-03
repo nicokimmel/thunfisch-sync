@@ -1,0 +1,17 @@
+@use "@SCSS/config/" as *;
+
+.player-overlay-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 15px 15px;
+
+    &-timestamp {
+        display: flex;
+        gap: 2px;
+        margin-left: 10px;
+        font-family: $font-family-roboto-mono;
+        font-size: .85rem;
+        user-select: none;
+    }
+}

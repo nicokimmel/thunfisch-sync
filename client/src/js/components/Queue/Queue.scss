@@ -1,0 +1,76 @@
+@use "@SCSS/config/" as *;
+
+.queue {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    padding: 20px;
+    border-radius: $border-radius-8;
+    background-color: $color-transparent-dark;
+
+    &-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        p {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: $font-weight-medium;
+        }
+
+        button {
+            display: flex;
+            padding: 10px;
+            border: none;
+            border-radius: $border-radius-circle;
+            background-color: $color-transparent-light;
+            font-family: $font-family-poppins !important;
+            color: $font-color;
+            text-decoration: none;
+
+            &.active {
+                background-color: $color-transparent-active;
+            }
+
+            &::before {
+                font-family: $font-family-icon !important;
+                font-size: 1rem;
+            }
+
+            &:hover {
+                background-color: $color-transparent-active;
+                cursor: pointer;
+            }
+
+            &:visited {
+                color: $font-color;
+                text-decoration: none;
+            }
+        }
+    }
+
+    &-list {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        gap: 15px;
+        height: 0;
+        overflow-y: auto;
+        
+        .video:hover {
+            background-color: $color-transparent-dark;
+            cursor: grab;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-tablet) {
+    .queue {
+        &-list {
+            height: auto;
+            overflow-y: initial;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+@use "@SCSS/config/" as *;
+
+.player-overlay {
+    z-index: $z-index-player-overlay;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-radius: $border-radius-8;
+    background: linear-gradient(to top, rgba($color-black, .75) 0%, transparent 25%);
+    
+    .indicator {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        padding: 15px;
+        border-radius: $border-radius-circle;
+        background-color: $color-transparent-darkest;
+        font-size: 1.5rem;
+        transform: translate(-50%, -50%);
+        transform-origin: left top;
+        
+        &.icon-play {
+            padding-right: 13px;
+            padding-left: 17px;
+        }
+    }
+}

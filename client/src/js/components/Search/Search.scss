@@ -1,0 +1,105 @@
+@use "@SCSS/config/" as *;
+
+.search {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 30%;
+    min-width: 400px;
+    height: 65%;
+    border: 1px solid $color-transparent-light;
+    border-radius: $border-radius-25;
+
+    >* {
+        border: none;
+        background-color: $color-transparent-darker;
+        color: $font-color;
+    }
+
+    &-input {
+        flex-grow: 1;
+        padding: 0 10px 0 20px;
+        border-radius: $border-radius-25 0 0 $border-radius-25;
+        outline: 0;
+        font-size: 1rem;
+        font-weight: $font-weight;
+    }
+    
+    &-clear {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 12px;
+
+        &::after {
+            content: $icon-x;
+            font-family: $font-family-icon;
+        }
+        
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    
+    &-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20px;
+        border-radius: 0 $border-radius-25 $border-radius-25 0;
+        background-color: $color-transparent-dark;
+
+        &:hover {
+            background-color: $color-transparent-light;
+            cursor: pointer;
+        }
+    }
+
+    &-results {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        z-index: $z-index-player-search;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 90%;
+        max-height: 70vh;
+        padding: 15px;
+        border-radius: $border-radius-8;
+        background-color: $color-grey-28;
+        transform: translateX(-50%);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+
+        >button {
+            padding: 5px;
+            border: none;
+            border-radius: $border-radius-4;
+            background-color: $color-transparent-light;
+            color: $color-grey-AA;
+
+            &:hover {
+                background-color: $color-transparent-active;
+                cursor: pointer;
+            }
+        }
+
+        &.hide {
+            display: none;
+        }
+    }
+    
+    &:has(.search-clear) {
+        .search-input {
+            padding: 0 0 0 20px;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-phone) {
+    .search {
+        width: calc(100% - 20px);
+        min-width: initial;
+    }
+}

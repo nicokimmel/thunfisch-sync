@@ -1,0 +1,52 @@
+@use "@SCSS/config/" as *;
+
+@import "react-range-slider-input/dist/style.css";
+@import "./helper.scss";
+@import "./font.scss";
+@import "./transitions.scss";
+
+* {
+    box-sizing: border-box;
+    scrollbar-color: $color-primary transparent;
+    
+    &::selection {
+        background-color: $color-transparent-active;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    
+    &-track {
+        background: transparent;
+    }
+    
+    &-thumb {
+        border: transparent;
+        border-radius: 20px;
+        background-color: $color-primary;
+    }
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: $color-grey-0C;
+    font-family: $font-family-poppins, "Arial", sans-serif;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    line-height: $line-height;
+    color: $font-color;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: $breakpoint-tablet) {
+    html,
+    body {
+        overflow-x: hidden;
+    }
+}

@@ -1,7 +1,5 @@
 @use "sass:math";
 
-@import "./typography.scss";
-
 @function rem($length-in-px) {
     @return math.div(strip-unit($length-in-px), strip-unit($font-size)) * 1rem;
 }
