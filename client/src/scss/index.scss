@@ -1,9 +1,9 @@
 @use "@SCSS/config/" as *;
 
-@import "react-range-slider-input/dist/style.css";
-@import "./helper.scss";
-@import "./font.scss";
-@import "./transitions.scss";
+@use "react-range-slider-input/dist/style.css";
+@use "./helper.scss";
+@use "./font.scss";
+@use "./transitions.scss";
 
 * {
     box-sizing: border-box;

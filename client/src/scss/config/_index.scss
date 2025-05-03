@@ -1,7 +1,7 @@
-@import "./functions.scss";
-@import "./color.scss";
-@import "./icon.scss";
-@import "./layout.scss";
-@import "./typography.scss";
-@import "./breakpoints.scss";
-@import "./vars.scss";
+@forward "./functions.scss";
+@forward "./color.scss";
+@forward "./icon.scss";
+@forward "./layout.scss";
+@forward "./typography.scss";
+@forward "./breakpoints.scss";
+@forward "./vars.scss";
