@@ -8,4 +8,4 @@ RUN cd /sync && \
 
 WORKDIR /sync
 
-CMD ["npm", "start"]
+CMD ["node", "/sync/server/src/index.js"]
