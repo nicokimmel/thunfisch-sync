@@ -1,6 +1,7 @@
 import readline from "readline"
 
 export default class CLI {
+    
     constructor(roomList) {
         this.rooms = roomList
         this.setup()

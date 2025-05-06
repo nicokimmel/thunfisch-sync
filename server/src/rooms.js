@@ -1,6 +1,7 @@
 import fs from "fs"
 
 export class Room {
+    
     constructor(roomId, sticky) {
         this.id = roomId
         this.viewer = 0
@@ -95,7 +96,7 @@ export class Room {
 }
 
 export class RoomList {
-
+    
     static ROOM_ID_LENGTH = 8
     static ROOM_FILE = "rooms.json"
     static VALID_CHARACTERS = "ABCDEFGHJKLMNPQRSTUVWXYZ0123456789"

@@ -1,4 +1,7 @@
 export default class ExitHelper {
+    
+    static SIGNALS = ["exit", "SIGINT", "SIGTERM", "SIGUSR1", "SIGUSR2", "uncaughtException"]
+    
     constructor(roomList) {
         this.rooms = roomList
         this.events()
@@ -11,10 +14,6 @@ export default class ExitHelper {
 
     events() {
         process.stdin.resume()
-        process.on("exit", this.onExit.bind(this))
-        process.on("SIGINT", this.onExit.bind(this))
-        process.on("SIGUSR1", this.onExit.bind(this))
-        process.on("SIGUSR2", this.onExit.bind(this))
-        process.on("uncaughtException", this.onExit.bind(this))
+        ExitHelper.SIGNALS.forEach(signal => process.on(signal, this.onExit.bind(this)))
     }
 }
