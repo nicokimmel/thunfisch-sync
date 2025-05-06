@@ -119,7 +119,7 @@ export class RoomList {
         this.list[roomId] = room
         return room
     }
-    
+
     remove(roomId) {
         delete this.list[roomId]
     }
@@ -147,22 +147,25 @@ export class RoomList {
     }
 
     load() {
-        if (fs.existsSync(RoomList.ROOM_FILE)) {
-            const buffer = fs.readFileSync(RoomList.ROOM_FILE)
-            if (buffer.length == 0) {
-                return
-            }
+        try {
+            if (fs.existsSync(RoomList.ROOM_FILE)) {
+                const buffer = fs.readFileSync(RoomList.ROOM_FILE)
+                if (buffer.length == 0) {
+                    return
+                }
 
-            const jsonData = JSON.parse(buffer)
-            for (let i = 0; i < jsonData.length; i++) {
-                const roomData = jsonData[i]
-                let room = this.create(roomData.id, true)
-                room.player = roomData.player
-                room.video = roomData.video
-                room.queue = roomData.queue
+                const jsonData = JSON.parse(buffer)
+                for (let i = 0; i < jsonData.length; i++) {
+                    const roomData = jsonData[i]
+                    let room = this.create(roomData.id, true)
+                    room.player = roomData.player
+                    room.video = roomData.video
+                    room.queue = roomData.queue
+                }
             }
+        } catch (error) {
+            console.error(error)
         }
-
     }
 
     save() {
@@ -173,9 +176,14 @@ export class RoomList {
                 rooms.push(room)
             }
         })
-        fs.writeFileSync(RoomList.ROOM_FILE, JSON.stringify(rooms))
+
+        try {
+            fs.writeFileSync(RoomList.ROOM_FILE, JSON.stringify(rooms))
+        } catch (error) {
+            console.error(error)
+        }
     }
-    
+
     print() {
         console.table(this.list)
     }

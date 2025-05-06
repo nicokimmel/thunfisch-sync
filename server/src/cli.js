@@ -49,11 +49,15 @@ export default class CLI {
             "list": () => {
                 this.rooms.print()
             },
+            "save": () => {
+                this.rooms.save()
+            },
             "help": () => {
                 console.log("\nVerfügbare Befehle:")
                 console.log(" create <room>  - Erstellt einen neuen Raum.")
                 console.log(" remove <room>  - Löscht den angegebenen Raum.")
                 console.log(" list           - Zeigt eine Liste aller Räume.")
+                console.log(" save           - Speichert alle Räume.")
                 console.log(" help           - Zeigt diese Hilfe an.")
                 console.log(" quit           - Beendet das Programm.")
             },
