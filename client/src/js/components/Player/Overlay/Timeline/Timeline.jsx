@@ -27,7 +27,7 @@ export default function Timeline({ duration, currentTime, onSeek }) {
         const handleMouseMove = (event) => {
             const slider = event.currentTarget
             const rect = slider.getBoundingClientRect()
-            const x = event.clientX - rect.left + 18
+            const x = event.clientX - rect.left + 17
             const time = (x / rect.width) * duration
             setHoverValue(time)
             setTooltipPosition(x)

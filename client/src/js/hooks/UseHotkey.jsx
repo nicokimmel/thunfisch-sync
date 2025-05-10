@@ -3,8 +3,14 @@ import { useState, useEffect } from "react"
 export default function useHotkeys() {
     const [keys, setKeys] = useState({})
 
+    const isTyping = (event) => {
+        return event.target.matches("input, textarea, [contenteditable=\"true\"]")
+    }
+    
     useEffect(() => {
         const handleKeyDown = (event) => {
+            if(isTyping(event) || event.repeat) { return }
+            
             setKeys(current => {
                 if (current[event.key]) return current
                 return {
