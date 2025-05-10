@@ -8,7 +8,7 @@
     transition: aspect-ratio .3s;
     user-select: none;
 
-    &>* {
+    & > * {
         grid-area: 1 / 1;
     }
 }

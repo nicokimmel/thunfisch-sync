@@ -5,8 +5,11 @@ import { useRef, useState, useEffect } from "react"
 import { CSSTransition } from "react-transition-group"
 import ReactPlayer from "react-player"
 
+import UseHotkey from "../../hooks/UseHotkey.jsx"
+
 import Overlay from "./Overlay/Overlay.jsx"
 import Ambilight from "./Ambilight/Ambilight.jsx"
+import Indicators from "./Indicator/Indicators.jsx"
 
 export default function Player({
     deviceType,
@@ -20,13 +23,14 @@ export default function Player({
     sponsorBlock, onSponsorBlock,
     onPiP
 }) {
+    const [keys] = UseHotkey()
+
     const playerRef = useRef(null)
     const youtubeRef = useRef(null)
-
+    const timeRef = useRef(currentTime)
     const hoverTimeoutRef = useRef(null)
 
     const [playerKey, setPlayerKey] = useState(Date.now())
-
     const [ready, setReady] = useState(false)
     const [muteOverlay, setMuteOverlay] = useState(true)
     const [mute, setMute] = useState(true)
@@ -80,7 +84,7 @@ export default function Player({
             }, 500)
         }
     }
-
+    
     const handleMouseEnter = () => {
         setHover(true)
     }
@@ -99,6 +103,22 @@ export default function Player({
             playerRef.current.style.cursor = "none"
         }, 2000)
     }
+
+    useEffect(() => {
+        timeRef.current = currentTime;
+    }, [currentTime])
+
+    useEffect(() => {
+        if (keys.ArrowLeft) {
+            onSeek(timeRef.current - 5)
+        }
+        if (keys.ArrowRight) {
+            onSeek(timeRef.current + 5)
+        }
+        if (keys[" "] || keys.Spacebar) {
+            onPlayPause()
+        }
+    }, [keys])
 
     useEffect(() => {
         if (Math.abs(time - currentTime) > 2) {
@@ -161,6 +181,7 @@ export default function Player({
                     <p>Zum Aufheben der Stummschaltung klicken</p>
                 </div>
             }
+            <Indicators playing={playing} keys={keys} />
             <CSSTransition
                 in={hover}
                 timeout={250}

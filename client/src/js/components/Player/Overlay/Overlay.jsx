@@ -2,8 +2,6 @@ import "./Overlay.scss"
 
 import { useState } from "react"
 
-import { CSSTransition } from "react-transition-group"
-
 import Timeline from "./Timeline/Timeline.jsx"
 import Control from "./Control/Control.jsx"
 import Options from "./Options/Options.jsx"
@@ -22,10 +20,7 @@ export default function Overlay({
     duration, currentTime, onSeek
 }) {
     const [options, setOptions] = useState(false)
-    const [lock, setLock] = useState(false)
-
-    const [indicator, setIndicator] = useState(false)
-    const [indicatorTimeout, setIndicatorTimeout] = useState(null)
+    const [lock, setLock] = useState(JSON.parse(localStorage.getItem("lock") ?? "false"))
 
     const handleClick = (event) => {
         if (event.currentTarget !== event.target) {
@@ -37,15 +32,10 @@ export default function Overlay({
         }
 
         onPlayPause()
-        setIndicator(true)
-        clearTimeout(indicatorTimeout)
-        setIndicatorTimeout(setTimeout(() => {
-            setIndicatorTimeout(null)
-            setIndicator(false)
-        }, 300))
     }
 
     const handleLock = () => {
+        localStorage.setItem("lock", !lock)
         setLock(!lock)
     }
 
@@ -60,19 +50,7 @@ export default function Overlay({
     }
 
     return (
-        <div
-            className="player-overlay"
-            onClick={handleClick}
-        >
-            <CSSTransition
-                in={indicator}
-                timeout={100}
-                classNames="scale"
-                mountOnEnter
-                unmountOnExit
-            >
-                <span className={`indicator ${playing ? "icon-play" : "icon-pause"}`} />
-            </CSSTransition>
+        <div className="overlay" onClick={handleClick}>
             {
                 options &&
                 <Options

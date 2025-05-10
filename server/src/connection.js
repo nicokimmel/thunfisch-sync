@@ -57,6 +57,8 @@ export default class Connection {
                 if (!room) { return }
                 if (typeof time !== "number") { return }
                 time = Math.floor(time)
+                if (time < 0) { time = 0 }
+                if (time > room.video.duration) { time = room.video.duration }
                 room.player.time = time
                 this.io.in(room.id).emit("seek", room.player.time)
             })

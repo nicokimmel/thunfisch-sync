@@ -1,7 +1,7 @@
 @use "@SCSS/config/" as *;
 
-html,
-body {
+html:has(#pip),
+body:has(#pip) {
     width: 100vw;
     height: 100vh;
     overflow: hidden;

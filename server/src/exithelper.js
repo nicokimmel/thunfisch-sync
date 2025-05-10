@@ -1,6 +1,6 @@
 export default class ExitHelper {
     
-    static SIGNALS = ["exit", "SIGINT", "SIGTERM", "SIGUSR1", "SIGUSR2", "uncaughtException"]
+    static SIGNALS = ["SIGINT", "SIGTERM", "SIGUSR1", "SIGUSR2", "uncaughtException"]
     
     constructor(roomList) {
         this.rooms = roomList
