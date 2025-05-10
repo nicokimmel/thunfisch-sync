@@ -20,7 +20,6 @@ export default function Timeline({ duration, currentTime, onSeek }) {
 
     const handleSeekEnd = () => {
         onSeek(value[1])
-        console.log(value[1])
         setSeeking(false)
     }
 
@@ -28,7 +27,7 @@ export default function Timeline({ duration, currentTime, onSeek }) {
         const handleMouseMove = (event) => {
             const slider = event.currentTarget
             const rect = slider.getBoundingClientRect()
-            const x = event.clientX - rect.left
+            const x = event.clientX - rect.left + 18
             const time = (x / rect.width) * duration
             setHoverValue(time)
             setTooltipPosition(x)

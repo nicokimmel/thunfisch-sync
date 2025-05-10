@@ -46,6 +46,6 @@ $range-slider-background-hover: linear-gradient(0deg, transparent 25%, rgba($col
         background: $color-transparent-darkest;
         font-family: $font-family-roboto-mono;
         pointer-events: none;
-        transform: translateX(-50%);
+        translate: -50% 0;
     }
 }
