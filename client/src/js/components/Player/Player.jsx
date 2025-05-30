@@ -234,9 +234,6 @@ export default function Player({
                             showinfo: 0,
                             hl: language,
                             persist_hl: 1
-                        },
-                        embedOptions: {
-                            host: "https://www.youtube-nocookie.com"
                         }
                     }
                 }}
