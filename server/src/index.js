@@ -47,6 +47,13 @@ app.get("/", (req, res) => {
     res.redirect(`/${roomId}`)
 })
 
+app.get("/api", (req, res) => {
+    res.json({
+        rooms: roomList.count(),
+        viewer: roomList.viewer()
+    })
+})
+
 app.get("/:roomId", (req, res) => {
     const roomId = req.params.roomId
 

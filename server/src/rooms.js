@@ -184,6 +184,18 @@ export class RoomList {
             console.error(error)
         }
     }
+    
+    count() {
+        return Object.keys(this.list).length
+    }
+    
+    viewer() {
+        let count = 0
+        this.forEach((room) => {
+            count += room.viewer
+        })
+        return count
+    }
 
     print() {
         console.table(this.list)
