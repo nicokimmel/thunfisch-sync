@@ -118,7 +118,9 @@ export default function Search({
                             setSearchChanged(true)
                             setHide(true)
                         }}
-                    >Alle hinzufügen</button>
+                    >
+                        Alle hinzufügen
+                    </button>
                 }
                 {
                     results.map((video, index) =>
@@ -133,7 +135,14 @@ export default function Search({
                                 setSearchChanged(true)
                                 setHide(true)
                             }}
-                            onAddClick={() => { onAddClick([results[index]]) }}
+                            onAddClick={() => {
+                                onAddClick([results[index]])
+                                if (results.length === 1) {
+                                    setSearchTerm("")
+                                    setSearchChanged(true)
+                                    setHide(true)
+                                }
+                            }}
                         />
                     )
                 }
