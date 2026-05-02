@@ -24,7 +24,6 @@ export default function Queue({
                     {
                         videos.map((video, index) =>
                             <Video
-                                key={video.title}
                                 index={index}
                                 title={video.title}
                                 channel={video.channel.name}
