@@ -12,13 +12,13 @@
     }
 
     &.drop-above {
-        border-top: 3px solid $color-primary;
         margin-top: 10px;
+        border-top: 3px solid $color-primary;
     }
 
     &.drop-below {
-        border-bottom: 3px solid $color-primary;
         margin-bottom: 10px;
+        border-bottom: 3px solid $color-primary;
     }
 
     &-thumbnail {
@@ -76,12 +76,12 @@
                 background-color: $color-transparent-light;
                 font-size: .7rem;
                 color: $color-grey-AA;
-                
+
                 &:hover {
                     background-color: $color-transparent-active;
                     cursor: pointer;
                 }
-                
+
                 &.reverse-icon {
                     &::before {
                         display: inline-block;
