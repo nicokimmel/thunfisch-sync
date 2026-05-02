@@ -35,7 +35,7 @@ export default function Player({
     const [muteOverlay, setMuteOverlay] = useState(true)
     const [mute, setMute] = useState(true)
     const [volume, setVolume] = useState(JSON.parse(localStorage.getItem("volume") ?? "0.25"))
-    const [ambilight, setAmbilight] = useState(JSON.parse(localStorage.getItem("ambilight") ?? "true"))
+    const [ambilight, setAmbilight] = useState(JSON.parse(localStorage.getItem("ambilight") ?? "false"))
     const [hover, setHover] = useState(true)
 
     const handleMuteOverlay = () => {
