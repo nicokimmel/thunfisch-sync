@@ -43,12 +43,12 @@ $iframe-offset: 200px;
     border-radius: $border-radius-8;
     overflow: hidden;
 
-    iframe {
-        position: absolute;
-        top: -$iframe-offset;
-        bottom: -$iframe-offset;
-        height: calc(100% + 2 * $iframe-offset);
-        pointer-events: none;
-        aspect-ratio: 16/9;
+    youtube-video {
+        position: absolute !important;
+        top: -$iframe-offset !important;
+        bottom: -$iframe-offset !important;
+        height: calc(100% + 2 * $iframe-offset) !important;
+        pointer-events: none !important;
+        aspect-ratio: 16/9 !important;
     }
 }

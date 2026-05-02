@@ -68,23 +68,20 @@ export default function Player({
         }
     }
 
-    const handleProgress = (event) => {
-        setCurrentTime(Math.floor(event.playedSeconds))
+    const handleProgress = () => {
+        setCurrentTime(Math.floor(youtubeRef.current?.currentTime ?? 0))
     }
 
     const handleReady = () => {
-        const player = youtubeRef.current.getInternalPlayer()
-
         if (!ready) {
             setReady(true)
-            player.seekTo(time)
+            youtubeRef.current.currentTime = time
             setTimeout(() => {
-                // Sometimes player just plays even playing is false
-                playing ? player.playVideo() : player.pauseVideo()
+                playing ? youtubeRef.current.play() : youtubeRef.current.pause()
             }, 500)
         }
     }
-    
+
     const handleMouseEnter = () => {
         setHover(true)
     }
@@ -123,7 +120,7 @@ export default function Player({
     useEffect(() => {
         if (Math.abs(time - currentTime) > 2) {
             setCurrentTime(time)
-            youtubeRef.current.seekTo(time)
+            youtubeRef.current.currentTime = time
         }
     }, [time])
 
@@ -220,31 +217,30 @@ export default function Player({
                 height="100%"
                 config={{
                     youtube: {
-                        playerVars: {
-                            origin: "*",
-                            autoplay: 1,
-                            controls: 0,
-                            disablekb: 1,
-                            fs: 0,
-                            iv_load_policy: 3,
-                            cc_load_policy: 0,
-                            modestbranding: 1,
-                            playsinline: 1,
-                            rel: 0,
-                            showinfo: 0,
-                            hl: language,
-                            persist_hl: 1
-                        }
+                        origin: "*",
+                        autoplay: 1,
+                        controls: 0,
+                        disablekb: 1,
+                        fs: 0,
+                        iv_load_policy: 3,
+                        cc_load_policy: 0,
+                        modestbranding: 1,
+                        playsinline: 1,
+                        rel: 0,
+                        showinfo: 0,
+                        hl: language,
+                        persist_hl: 1
                     }
                 }}
-                url={`https://www.youtube.com/watch?v=${videoId}`}
+                src={`https://www.youtube.com/watch?v=${videoId}`}
                 playing={playing}
                 controls={false}
                 volume={volume}
                 muted={mute}
                 playbackRate={speed}
-                playsinline
-                onProgress={handleProgress}
+                playsInline
+                wrapper="div"
+                onTimeUpdate={handleProgress}
                 onReady={handleReady}
             />
         </div>
