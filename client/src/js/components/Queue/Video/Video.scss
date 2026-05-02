@@ -61,10 +61,17 @@
                 background-color: $color-transparent-light;
                 font-size: .7rem;
                 color: $color-grey-AA;
-
+                
                 &:hover {
                     background-color: $color-transparent-active;
                     cursor: pointer;
+                }
+                
+                &.reverse-icon {
+                    &::before {
+                        display: inline-block;
+                        rotate: 180deg;
+                    }
                 }
             }
         }

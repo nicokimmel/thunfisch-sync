@@ -8,7 +8,7 @@ import Spacer from "../Spacer/Spacer.jsx"
 
 export default function Queue({
     videos,
-    onPlayClick, onTrashClick, onVideoDrag,
+    onPlayClick, onTrashClick, onVideoMove,
     onClearClick, onShuffleClick
 }) {
     return (
@@ -24,6 +24,7 @@ export default function Queue({
                     {
                         videos.map((video, index) =>
                             <Video
+                                key={video.title}
                                 index={index}
                                 title={video.title}
                                 channel={video.channel.name}
@@ -31,7 +32,7 @@ export default function Queue({
                                 duration={timeFormat(video.duration)}
                                 onPlayClick={() => { onPlayClick([video], index) }}
                                 onTrashClick={() => { onTrashClick(index) }}
-                                onVideoDrag={onVideoDrag}
+                                onVideoMove={onVideoMove}
                             />
                         )
                     }

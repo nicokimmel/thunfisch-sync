@@ -138,7 +138,8 @@ export default class Connection {
                 if (typeof from !== "number") { return }
                 if (typeof to !== "number") { return }
                 if (from < 0 || from > room.queue.length - 1) { return }
-                if (to < 0 || to > room.queue.length - 1) { return }
+                if (to < 0) { to = 0; }
+                if (to > room.queue.length - 1) { to = room.queue.length - 1 }
                 if (from === to) { return }
                 room.move(from, to)
                 this.io.in(room.id).emit("queue", room.queue)

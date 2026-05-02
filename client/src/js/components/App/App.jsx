@@ -110,7 +110,7 @@ export default function App() {
                         videos={queue}
                         onPlayClick={handleVideo}
                         onTrashClick={handleQueueRemove}
-                        onVideoDrag={handleQueueMove}
+                        onVideoMove={handleQueueMove}
                         onClearClick={handleQueueClear}
                         onShuffleClick={handleQueueShuffle}
                     />

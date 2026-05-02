@@ -11,7 +11,7 @@ const ItemType = {
 export default function Video({
     index,
     title, channel, thumbnail, duration,
-    onPlayClick, onAddClick, onTrashClick, onVideoDrag
+    onPlayClick, onAddClick, onTrashClick, onVideoMove
 }) {
     const [, drop] = useDrop({
         accept: ItemType.VIDEO,
@@ -25,7 +25,7 @@ export default function Video({
             if (monitor.didDrop()) {
                 const toIndex = monitor.getDropResult().index
                 if (toIndex !== null && item.index !== toIndex) {
-                    onVideoDrag(item.index, toIndex)
+                    onVideoMove(item.index, toIndex)
                 }
             }
         },
@@ -56,6 +56,12 @@ export default function Video({
                     {
                         onTrashClick &&
                         <button className="video-info-thumbnail-button icon-trash" onClick={onTrashClick} />
+                    }
+                    {
+                        onVideoMove && <>
+                            <button className="video-info-thumbnail-button icon-double-arrow-up" onClick={() => { onVideoMove(index, 0) }} />
+                            <button className="video-info-thumbnail-button icon-double-arrow-up reverse-icon" onClick={() => { onVideoMove(index, Number.MAX_VALUE) }} />
+                        </>
                     }
                 </div>
             </div>
