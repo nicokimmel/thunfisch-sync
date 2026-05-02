@@ -1,10 +1,12 @@
 import "./Video.scss"
 
+import { useEffect, useRef, useState } from "react"
 import { useDrag, useDrop } from "react-dnd"
+import { getEmptyImage } from "react-dnd-html5-backend"
 
 import Spacer from "../../Spacer/Spacer.jsx"
 
-const ItemType = {
+export const ItemType = {
     VIDEO: "video"
 }
 
@@ -13,14 +15,45 @@ export default function Video({
     title, channel, thumbnail, duration,
     onPlayClick, onAddClick, onTrashClick, onVideoMove
 }) {
-    const [, drop] = useDrop({
+    const ref = useRef(null)
+    const [dropDirection, setDropDirection] = useState(null)
+    const dropDirectionRef = useRef(null)
+    dropDirectionRef.current = dropDirection
+
+    const [{ isOver }, drop] = useDrop({
         accept: ItemType.VIDEO,
-        drop: () => ({ index })
+        drop: () => {
+            const dir = dropDirectionRef.current
+            return { index: dir === "below" ? index + 1 : index }
+        },
+        hover(item, monitor) {
+            if (!ref.current || !monitor.isOver()) return
+            if (item.index === index) {
+                setDropDirection(null)
+                return
+            }
+            const rect = ref.current.getBoundingClientRect()
+            const midY = (rect.bottom - rect.top) / 2
+            const clientOffset = monitor.getClientOffset()
+            if (!clientOffset) return
+            const hoverClientY = clientOffset.y - rect.top
+            setDropDirection(hoverClientY < midY ? "above" : "below")
+        },
+        collect: (monitor) => ({
+            isOver: monitor.isOver(),
+        })
     })
 
-    const [, drag] = useDrag({
+    useEffect(() => {
+        if (!isOver) setDropDirection(null)
+    }, [isOver])
+
+    const [{ isDragging }, drag, preview] = useDrag({
         type: ItemType.VIDEO,
-        item: { index },
+        item: () => ({
+            index, title, channel, thumbnail, duration,
+            width: ref.current?.getBoundingClientRect().width,
+        }),
         end: (item, monitor) => {
             if (monitor.didDrop()) {
                 const toIndex = monitor.getDropResult().index
@@ -34,8 +67,20 @@ export default function Video({
         })
     })
 
+    useEffect(() => {
+        preview(getEmptyImage(), { captureDraggingState: true })
+    }, [preview])
+
+    const dropClass = dropDirection ? `drop-${dropDirection}` : ""
+
     return (
-        <div className="video" ref={(node) => drag(drop(node))}>
+        <div
+            className={`video${isDragging ? " is-dragging" : ""}${dropClass ? ` ${dropClass}` : ""}`}
+            ref={(node) => {
+                ref.current = node
+                drag(drop(node))
+            }}
+        >
             <div className="video-thumbnail">
                 <img className="video-thumbnail-image" src={thumbnail} />
                 <span className="video-thumbnail-duration">{duration}</span>

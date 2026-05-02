@@ -4,6 +4,7 @@ import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
 
 import Video from "./Video/Video.jsx"
+import Draggable from "./Draggable/Draggable.jsx"
 import Spacer from "../Spacer/Spacer.jsx"
 
 export default function Queue({
@@ -13,6 +14,7 @@ export default function Queue({
 }) {
     return (
         <DndProvider backend={HTML5Backend}>
+            <Draggable />
             <div className="queue">
                 <div className="queue-controls">
                     <p>Warteschlange</p>

@@ -5,6 +5,21 @@
     gap: 10px;
     height: 105px;
     border-radius: $border-radius-8;
+    transition: margin .2s ease;
+
+    &.is-dragging {
+        opacity: .3;
+    }
+
+    &.drop-above {
+        border-top: 3px solid $color-primary;
+        margin-top: 10px;
+    }
+
+    &.drop-below {
+        border-bottom: 3px solid $color-primary;
+        margin-bottom: 10px;
+    }
 
     &-thumbnail {
         position: relative;
