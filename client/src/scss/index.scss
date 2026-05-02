@@ -8,7 +8,7 @@
 * {
     box-sizing: border-box;
     scrollbar-color: $color-primary transparent;
-    
+
     &::selection {
         background-color: $color-transparent-active;
     }
@@ -16,11 +16,11 @@
 
 ::-webkit-scrollbar {
     width: 4px;
-    
+
     &-track {
         background: transparent;
     }
-    
+
     &-thumb {
         border: transparent;
         border-radius: 20px;

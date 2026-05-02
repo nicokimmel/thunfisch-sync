@@ -6,11 +6,11 @@ export default function useHotkeys() {
     const isTyping = (event) => {
         return event.target.matches("input, textarea, [contenteditable=\"true\"]")
     }
-    
+
     useEffect(() => {
         const handleKeyDown = (event) => {
-            if(isTyping(event) || event.repeat) { return }
-            
+            if (isTyping(event) || event.repeat) { return }
+
             setKeys(current => {
                 if (current[event.key]) return current
                 return {
@@ -32,10 +32,10 @@ export default function useHotkeys() {
 
         document.addEventListener("keydown", handleKeyDown)
         document.addEventListener("keyup", handleKeyUp)
-        
+
         // Disable scroll on spacebar
         document.addEventListener("keydown", (event) => {
-            if(event.key === " " && event.target === document.body) {
+            if (event.key === " " && event.target === document.body) {
                 event.preventDefault()
             }
         })
