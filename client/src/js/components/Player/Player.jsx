@@ -102,7 +102,7 @@ export default function Player({
     }
 
     useEffect(() => {
-        timeRef.current = currentTime;
+        timeRef.current = currentTime
     }, [currentTime])
 
     useEffect(() => {
