@@ -145,7 +145,7 @@ export default class Connection {
             client.on("queue-move", (from, to) => {
                 if (!room) { return }
                 if (!validateQueueMove(from, to, room.queue.length).valid) { return }
-                if (to < 0) { to = 0; }
+                if (to < 0) { to = 0 }
                 if (to > room.queue.length - 1) { to = room.queue.length - 1 }
                 if (from === to) { return }
                 room.move(from, to)

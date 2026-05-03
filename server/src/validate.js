@@ -3,6 +3,7 @@ const isOptionalString = (v) => v === undefined || isString(v)
 const isObject = (v) => typeof v === "object" && v !== null
 const isPositiveOrMinusOne = (v) => typeof v === "number" && Number.isFinite(v) && (v === -1 || v > 0)
 const isStringArray = (v) => Array.isArray(v) && v.every(isString)
+const isOptionalStringArray = (v) => v === undefined || isStringArray(v)
 
 function check(obj, rules) {
     for (const [key, validator] of Object.entries(rules)) {
@@ -25,7 +26,7 @@ export function validateVideo(video) {
         duration: isPositiveOrMinusOne,
         views: isString,
         language: isOptionalString,
-        tags: isStringArray,
+        tags: isOptionalStringArray,
         channel: isObject,
     })
     if (!result.valid) return result
