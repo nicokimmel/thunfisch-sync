@@ -54,6 +54,34 @@ app.get("/api", (req, res) => {
     })
 })
 
+app.get("/api/:roomId", (req, res) => {
+    const roomId = req.params.roomId
+
+    // Always use uppercase room ids
+    if (roomId !== roomId.toUpperCase()) {
+        res.redirect(`/api/${roomId.toUpperCase()}`)
+        return
+    }
+
+    if (!roomList.valid(roomId)) {
+        res.status(400).json({
+            status: "error",
+            message: "Room id invalid."
+        })
+        return
+    }
+
+    if (!roomList.exists(roomId)) {
+        res.status(404).json({
+            status: "error",
+            message: "Room not found."
+        })
+        return
+    }
+
+    res.json(roomList.get(roomId))
+})
+
 app.get("/:roomId", (req, res) => {
     const roomId = req.params.roomId
 
