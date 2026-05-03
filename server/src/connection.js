@@ -2,7 +2,16 @@ import { Server } from "socket.io"
 
 import YouTube from "./youtube.js"
 import SponsorBlock from "./sponsorblock.js"
-import { validateRoomId, validateSeekTime, validateSpeed, validateSearchTerm, validateVideoList, validateQueuePos, validateQueueIndex, validateQueueMove } from "./validate.js"
+import {
+    validateRoomId,
+    validateSeekTime,
+    validateSpeed,
+    validateSearchTerm,
+    validateVideoList,
+    validateQueuePos,
+    validateQueueIndex,
+    validateQueueMove
+} from "./validate.js"
 
 export default class Connection {
 
