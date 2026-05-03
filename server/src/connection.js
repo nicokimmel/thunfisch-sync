@@ -7,26 +7,26 @@ function validateVideoList(videoList) {
     if (!Array.isArray(videoList)) { return false };
 
     for (const video of videoList) {
-        if (typeof video !== 'object' || video === null) { return false };
+        if (typeof video !== "object" || video === null) { return false };
 
-        if (typeof video.id !== 'string' || video.id.length === 0) { return false };
-        if (typeof video.title !== 'string' || video.title.length === 0) { return false };
-        if (typeof video.thumbnail !== 'string' || video.thumbnail.length === 0) { return false };
-        if (typeof video.duration !== 'number') { return false };
-        if (typeof video.views !== 'string' || video.views.length === 0) { return false };
-        if (typeof video.language !== 'string' || video.language.length === 0) { return false };
+        if (typeof video.id !== "string" || video.id.length === 0) { return false };
+        if (typeof video.title !== "string" || video.title.length === 0) { return false };
+        if (typeof video.thumbnail !== "string" || video.thumbnail.length === 0) { return false };
+        if (typeof video.duration !== "number") { return false };
+        if (typeof video.views !== "string" || video.views.length === 0) { return false };
+        if (typeof video.language !== "string" || video.language.length === 0) { return false };
 
         if (!Array.isArray(video.tags)) { return false };
         for (const tag of video.tags) {
-            if (typeof tag !== 'string' || tag.length === 0) { return false };
+            if (typeof tag !== "string" || tag.length === 0) { return false };
         }
 
         const channel = video.channel;
-        if (typeof channel !== 'object' || channel === null) { return false };
-        if (typeof channel.id !== 'string' || channel.id.length === 0) { return false };
-        if (typeof channel.name !== 'string' || channel.name.length === 0) { return false };
-        if (typeof channel.subscribers !== 'string' || channel.subscribers.length === 0) { return false };
-        if (typeof channel.image !== 'string' || channel.image.length === 0) { return false };
+        if (typeof channel !== "object" || channel === null) { return false };
+        if (typeof channel.id !== "string" || channel.id.length === 0) { return false };
+        if (typeof channel.name !== "string" || channel.name.length === 0) { return false };
+        if (typeof channel.subscribers !== "string" || channel.subscribers.length === 0) { return false };
+        if (typeof channel.image !== "string" || channel.image.length === 0) { return false };
     }
 
     return true;
