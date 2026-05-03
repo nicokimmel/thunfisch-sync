@@ -2,35 +2,7 @@ import { Server } from "socket.io"
 
 import YouTube from "./youtube.js"
 import SponsorBlock from "./sponsorblock.js"
-
-function validateVideoList(videoList) {
-    if (!Array.isArray(videoList)) { return false };
-
-    for (const video of videoList) {
-        if (typeof video !== "object" || video === null) { return false };
-
-        if (typeof video.id !== "string" || video.id.length === 0) { return false };
-        if (typeof video.title !== "string" || video.title.length === 0) { return false };
-        if (typeof video.thumbnail !== "string" || video.thumbnail.length === 0) { return false };
-        if (typeof video.duration !== "number") { return false };
-        if (typeof video.views !== "string" || video.views.length === 0) { return false };
-        if (typeof video.language !== "string" || video.language.length === 0) { return false };
-
-        if (!Array.isArray(video.tags)) { return false };
-        for (const tag of video.tags) {
-            if (typeof tag !== "string" || tag.length === 0) { return false };
-        }
-
-        const channel = video.channel;
-        if (typeof channel !== "object" || channel === null) { return false };
-        if (typeof channel.id !== "string" || channel.id.length === 0) { return false };
-        if (typeof channel.name !== "string" || channel.name.length === 0) { return false };
-        if (typeof channel.subscribers !== "string" || channel.subscribers.length === 0) { return false };
-        if (typeof channel.image !== "string" || channel.image.length === 0) { return false };
-    }
-
-    return true;
-}
+import { validateRoomId, validateSeekTime, validateSpeed, validateSearchTerm, validateVideoList, validateQueuePos, validateQueueIndex, validateQueueMove } from "./validate.js"
 
 export default class Connection {
 
@@ -51,7 +23,7 @@ export default class Connection {
             let room = null
 
             client.on("join", (roomId) => {
-                if (typeof roomId !== "string") { return }
+                if (!validateRoomId(roomId).valid) { return }
                 room = this.rooms.get(roomId)
                 if (!room) {
                     // Room might be gone after reconnect
@@ -84,18 +56,17 @@ export default class Connection {
 
             client.on("seek", (time) => {
                 if (!room) { return }
-                if (typeof time !== "number") { return }
+                if (!validateSeekTime(time).valid) { return }
                 time = Math.floor(time)
                 if (time < 0) { time = 0 }
-                if (time > room.video.duration) { time = room.video.duration }
+                if (room.video.duration > 0 && time > room.video.duration) { time = room.video.duration }
                 room.player.time = time
                 this.io.in(room.id).emit("seek", room.player.time)
             })
 
             client.on("speed", (speed) => {
                 if (!room) { return }
-                if (typeof speed !== "number") { return }
-                if (speed > 5 || speed < 0.1) { return }
+                if (!validateSpeed(speed).valid) { return }
                 room.player.speed = speed
                 this.io.in(room.id).emit("speed", room.player.speed)
             })
@@ -114,7 +85,7 @@ export default class Connection {
 
             client.on("search", (searchTerm) => {
                 if (!room) { return }
-                if (!searchTerm || searchTerm == "" || typeof searchTerm !== "string") { return }
+                if (!validateSearchTerm(searchTerm).valid) { return }
                 const result = this.youtube.parse(searchTerm)
                 if (result.type === "s") {
                     this.youtube.getSearch(result.value, (videoList) => {
@@ -133,9 +104,8 @@ export default class Connection {
 
             client.on("video", (videoList, queuePos) => {
                 if (!room) { return }
-                if (!validateVideoList(videoList)) { return }
-                if (videoList.length < 1) { return }
-                if (queuePos && typeof queuePos !== "number") { return }
+                if (!validateVideoList(videoList).valid) { return }
+                if (!validateQueuePos(queuePos).valid) { return }
                 if (queuePos >= 0) {
                     room.remove(queuePos)
                     this.io.in(room.id).emit("queue", room.queue)
@@ -151,23 +121,21 @@ export default class Connection {
 
             client.on("queue-add", (videoList) => {
                 if (!room) { return }
-                if (!validateVideoList(videoList)) { return }
+                if (!validateVideoList(videoList).valid) { return }
                 room.add(videoList)
                 this.io.in(room.id).emit("queue", room.queue)
             })
 
             client.on("queue-remove", (index) => {
                 if (!room) { return }
-                if (typeof index !== "number") { return }
+                if (!validateQueueIndex(index).valid) { return }
                 room.remove(index)
                 this.io.in(room.id).emit("queue", room.queue)
             })
 
             client.on("queue-move", (from, to) => {
                 if (!room) { return }
-                if (typeof from !== "number") { return }
-                if (typeof to !== "number") { return }
-                if (from < 0 || from > room.queue.length - 1) { return }
+                if (!validateQueueMove(from, to, room.queue.length).valid) { return }
                 if (to < 0) { to = 0; }
                 if (to > room.queue.length - 1) { to = room.queue.length - 1 }
                 if (from === to) { return }
