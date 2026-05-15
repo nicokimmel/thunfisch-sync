@@ -46,12 +46,13 @@ export default function YouTube({
 }) {
     const containerRef = useRef(null)
     const playerRef = useRef(null)
+    const targetRef = useRef(null)
 
-    const readyCalled = useRef(false)
+    const readyCalledRef = useRef(false)
+    const onReadyRef = useRef(onReady)
 
     const onTimeUpdateRef = useRef(onTimeUpdate)
 
-    const onReadyRef = useRef(onReady)
     const [ready, setReady] = useState(false)
 
     useEffect(() => {
@@ -62,6 +63,15 @@ export default function YouTube({
         onTimeUpdateRef.current = onTimeUpdate
     }, [onTimeUpdate])
 
+    const setPlayerReady = (player) => {
+        playerRef.current = player
+        setReady(true)
+        if (!readyCalledRef.current) {
+            readyCalledRef.current = true
+            onReadyRef.current?.()
+        }
+    }
+
     useEffect(() => {
         const container = containerRef.current
         if (!container || !videoId) {
@@ -69,45 +79,42 @@ export default function YouTube({
         }
 
         let cancelled = false
-        readyCalled.current = false
 
-        const target = document.createElement("div")
-        target.style.width = "100%"
-        target.style.height = "100%"
-        container.appendChild(target)
+        if (playerRef.current) {
+            readyCalledRef.current = false
+
+            try {
+                playerRef.current.loadVideoById(videoId)
+            } catch (_) { }
+
+            return
+        }
+
+        if (!targetRef.current) {
+            const target = document.createElement("div")
+            target.style.width = "100%"
+            target.style.height = "100%"
+            container.appendChild(target)
+            targetRef.current = target
+        }
 
         loadYouTubeAPI().then(() => {
-            if (cancelled || !container) {
+            if (cancelled) {
                 return
             }
 
-            const player = new window.YT.Player(target, {
+            const player = new window.YT.Player(targetRef.current, {
                 videoId,
-                playerVars: {
-                    autoplay: 0,
-                    controls: 0,
-                    disablekb: 1,
-                    fs: 0,
-                    iv_load_policy: 3,
-                    cc_load_policy: 0,
-                    modestbranding: 1,
-                    playsinline: 1,
-                    rel: 0,
-                    ...playerVars
-                },
+                playerVars: playerVars,
                 events: {
                     onReady: () => {
-                        if (cancelled) {
-                            return
+                        if (!cancelled && !playerRef.current) {
+                            setPlayerReady(player)
                         }
-
-                        playerRef.current = player
-
-                        setReady(true)
-
-                        if (!readyCalled.current) {
-                            readyCalled.current = true
-                            onReadyRef.current?.()
+                    },
+                    onStateChange: (event) => {
+                        if (event.data === 1 && !readyCalledRef.current) {
+                            setPlayerReady(player)
                         }
                     },
                     onError: (event) => {
@@ -119,7 +126,11 @@ export default function YouTube({
 
         return () => {
             cancelled = true
+        }
+    }, [videoId])
 
+    useEffect(() => {
+        return () => {
             if (playerRef.current) {
                 try {
                     playerRef.current.destroy()
@@ -128,13 +139,12 @@ export default function YouTube({
                 playerRef.current = null
             }
 
-            if (container.contains(target)) {
-                target.remove()
+            if (targetRef.current && containerRef.current?.contains(targetRef.current)) {
+                targetRef.current.remove()
+                targetRef.current = null
             }
-
-            setReady(false)
         }
-    }, [videoId])
+    }, [])
 
     useEffect(() => {
         if (apiRef) {
@@ -174,40 +184,27 @@ export default function YouTube({
     }, [ready])
 
     useEffect(() => {
-        if (!playerRef.current || !ready) {
+        const player = playerRef.current
+        if (!player || !ready) {
             return
         }
 
         try {
-            playing ? playerRef.current.playVideo() : playerRef.current.pauseVideo()
+            playing ? player.playVideo() : player.pauseVideo()
         } catch (_) { }
-    }, [playing, ready])
-
-    useEffect(() => {
-        if (!playerRef.current || !ready) {
-            return
-        }
-
-        try { playerRef.current.setVolume(volume * 100) } catch (_) { }
-    }, [volume, ready])
-
-    useEffect(() => {
-        if (!playerRef.current || !ready) {
-            return
-        }
 
         try {
-            muted ? playerRef.current.mute() : playerRef.current.unMute()
+            player.setVolume(volume * 100)
         } catch (_) { }
-    }, [muted, ready])
 
-    useEffect(() => {
-        if (!playerRef.current || !ready) {
-            return
-        }
+        try {
+            muted ? player.mute() : player.unMute()
+        } catch (_) { }
 
-        try { playerRef.current.setPlaybackRate(playbackRate) } catch (_) { }
-    }, [playbackRate, ready])
+        try {
+            player.setPlaybackRate(playbackRate)
+        } catch (_) { }
+    }, [playing, volume, muted, playbackRate, ready])
 
     return (
         <div ref={containerRef} className={className} />

@@ -29,6 +29,7 @@ export default function Player({
     const youtubeRef = useRef(null)
     const timeRef = useRef(currentTime)
     const hoverTimeoutRef = useRef(null)
+    const languageRef = useRef(null)
 
     const [playerKey, setPlayerKey] = useState(Date.now())
     const [ready, setReady] = useState(false)
@@ -73,13 +74,11 @@ export default function Player({
     }
 
     const handleReady = () => {
-        if (!ready) {
-            setReady(true)
-            youtubeRef.current.currentTime = time
-            setTimeout(() => {
-                playing ? youtubeRef.current.play() : youtubeRef.current.pause()
-            }, 500)
-        }
+        setReady(true)
+        youtubeRef.current.currentTime = time
+        setTimeout(() => {
+            playing ? youtubeRef.current.play() : youtubeRef.current.pause()
+        }, 500)
     }
 
     const handleMouseEnter = () => {
@@ -152,7 +151,26 @@ export default function Player({
         // Workaround for remounting player
         // in order to reload youtube parameters
         // to force language.
-        setPlayerKey(Date.now())
+        
+        const reloadParameters = () => {
+            languageRef.current = language
+            setPlayerKey(Date.now())
+        }
+        
+        if(language !== languageRef.current) {
+            return
+        }
+        
+        if(navigator.userAgent.toLowerCase().includes('firefox')) {
+            reloadParameters()
+            return
+        }
+        
+        if(document.hidden === "undefined" || document.hidden) {
+            return
+        }
+        
+        reloadParameters()
     }, [language])
 
     return (
