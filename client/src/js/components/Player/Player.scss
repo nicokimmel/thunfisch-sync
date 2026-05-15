@@ -43,7 +43,7 @@ $iframe-offset: 200px;
     border-radius: $border-radius-8;
     overflow: hidden;
 
-    youtube-video {
+    iframe {
         position: absolute !important;
         top: -$iframe-offset !important;
         bottom: -$iframe-offset !important;

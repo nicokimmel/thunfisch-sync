@@ -3,11 +3,11 @@ import "./Player.scss"
 import { useRef, useState, useEffect } from "react"
 
 import { CSSTransition } from "react-transition-group"
-import ReactPlayer from "react-player"
 
 import UseHotkey from "../../hooks/UseHotkey.jsx"
 
 import Overlay from "./Overlay/Overlay.jsx"
+import YouTube from "./YouTube/YouTube.jsx"
 import Ambilight from "./Ambilight/Ambilight.jsx"
 import Indicators from "./Indicator/Indicators.jsx"
 
@@ -165,7 +165,7 @@ export default function Player({
             {
                 ambilight && deviceType === "desktop" &&
                 <Ambilight
-                    url={`https://www.youtube.com/watch?v=${videoId}`}
+                    videoId={videoId}
                     currentTime={currentTime}
                     playing={playing}
                     speed={speed}
@@ -209,37 +209,30 @@ export default function Player({
                     onFullscreen={handleFullscreen}
                 />
             </CSSTransition>
-            <ReactPlayer
+            <YouTube
                 key={playerKey}
                 className="player-iframe"
-                ref={youtubeRef}
-                width="100%"
-                height="100%"
-                config={{
-                    youtube: {
-                        origin: "*",
-                        autoplay: 1,
-                        controls: 0,
-                        disablekb: 1,
-                        fs: 0,
-                        iv_load_policy: 3,
-                        cc_load_policy: 0,
-                        modestbranding: 1,
-                        playsinline: 1,
-                        rel: 0,
-                        showinfo: 0,
-                        hl: language,
-                        persist_hl: 1
-                    }
+                apiRef={youtubeRef}
+                videoId={videoId}
+                playerVars={{
+                    origin: "*",
+                    autoplay: 1,
+                    controls: 0,
+                    disablekb: 1,
+                    fs: 0,
+                    iv_load_policy: 3,
+                    cc_load_policy: 0,
+                    modestbranding: 1,
+                    playsinline: 1,
+                    rel: 0,
+                    showinfo: 0,
+                    hl: language,
+                    persist_hl: 1
                 }}
-                src={`https://www.youtube.com/watch?v=${videoId}`}
                 playing={playing}
-                controls={false}
                 volume={volume}
                 muted={mute}
                 playbackRate={speed}
-                playsInline
-                wrapper="div"
                 onTimeUpdate={handleProgress}
                 onReady={handleReady}
             />
