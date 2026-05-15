@@ -157,11 +157,11 @@ export default function Player({
             setPlayerKey(Date.now())
         }
         
-        if(language !== languageRef.current) {
+        if(language === languageRef.current) {
             return
         }
         
-        if(navigator.userAgent.toLowerCase().includes('firefox')) {
+        if(navigator.userAgent.toLowerCase().includes("firefox")) {
             reloadParameters()
             return
         }
