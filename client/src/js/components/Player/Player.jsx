@@ -233,7 +233,7 @@ export default function Player({
                 apiRef={youtubeRef}
                 videoId={videoId}
                 playerVars={{
-                    origin: "*",
+                    origin: window.location.origin,
                     autoplay: 1,
                     controls: 0,
                     disablekb: 1,

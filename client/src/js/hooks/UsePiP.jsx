@@ -1,7 +1,4 @@
 import { useState } from "react"
-import ReactDOM from "react-dom/client"
-
-import PiP from "../components/PiP/PiP.jsx"
 
 export default function UsePiP(roomId) {
     const [isPiPActive, setIsPiPActive] = useState(false)
@@ -18,24 +15,22 @@ export default function UsePiP(roomId) {
         }).then((pipWindow) => {
             const handleClose = () => {
                 setIsPiPActive(false)
-                handleReady()
             }
             pipWindow.addEventListener("beforeunload", handleClose)
             pipWindow.addEventListener("unload", handleClose)
 
-            const headLinks = document.head.querySelectorAll("link[rel=\"stylesheet\"], style")
-            headLinks.forEach(node => {
-                pipWindow.document.head.appendChild(node.cloneNode(true))
-            })
+            pipWindow.document.body.style.margin = "0"
+            pipWindow.document.body.style.overflow = "hidden"
 
-            const pipDiv = pipWindow.document.createElement("div")
-            pipDiv.setAttribute("id", "pip")
-            pipWindow.document.body.append(pipDiv)
-
-            const pipRoot = ReactDOM.createRoot(
-                pipWindow.document.getElementById("pip")
-            )
-            pipRoot.render(<PiP roomId={roomId} />)
+            const pipFrame = pipWindow.document.createElement("iframe")
+            pipFrame.src = `${window.location.pathname}#pip`
+            pipFrame.title = "Thunfisch Sync PiP"
+            pipFrame.allow = "autoplay; encrypted-media; fullscreen; picture-in-picture"
+            pipFrame.style.display = "block"
+            pipFrame.style.width = "100vw"
+            pipFrame.style.height = "100vh"
+            pipFrame.style.border = "0"
+            pipWindow.document.body.append(pipFrame)
 
             setIsPiPActive(true)
         })

@@ -1,6 +1,6 @@
 import "./App.scss"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 
 import UseDevice from "../../hooks/UseDevice.jsx"
 import UseURL from "../../hooks/UseURL.jsx"
@@ -10,13 +10,24 @@ import UsePiP from "../../hooks/UsePiP.jsx"
 import Search from "../Search/Search.jsx"
 import Player from "../Player/Player.jsx"
 import Information from "../Information/Information.jsx"
+import PiP from "../PiP/PiP.jsx"
 import Queue from "../Queue/Queue.jsx"
 import Spacer from "../Spacer/Spacer.jsx"
 import Viewer from "../Viewer/Viewer.jsx"
 
 export default function App() {
-    const [deviceType] = UseDevice()
     const [roomId, type] = UseURL()
+
+    const isPiPWindow = useMemo(() => window.location.hash === "#pip", [window.location.hash])
+
+    if (isPiPWindow) {
+        return (
+            <div id="pip">
+                <PiP roomId={roomId} />
+            </div>
+        )
+    }
+
     const {
         connected,
         viewer,
@@ -37,6 +48,7 @@ export default function App() {
         handleQueueClear,
         handleQueueShuffle
     } = UseSync(roomId)
+    const [deviceType] = UseDevice()
     const [handlePiP, isPiPActive] = UsePiP(roomId)
 
     const [currentTime, setCurrentTime] = useState(0)
