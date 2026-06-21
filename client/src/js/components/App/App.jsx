@@ -6,6 +6,7 @@ import UseDevice from "../../hooks/UseDevice.jsx"
 import UseURL from "../../hooks/UseURL.jsx"
 import UseSync from "../../hooks/UseSync.jsx"
 import UsePiP from "../../hooks/UsePiP.jsx"
+import useStyle from "../../hooks/UseStyle.jsx"
 
 import Search from "../Search/Search.jsx"
 import Player from "../Player/Player.jsx"
@@ -16,8 +17,10 @@ import Spacer from "../Spacer/Spacer.jsx"
 import Viewer from "../Viewer/Viewer.jsx"
 
 export default function App() {
+    useStyle(localStorage.getItem("cssStyle"))
+    
     const [roomId, type] = UseURL()
-
+    
     const isPiPWindow = useMemo(() => window.location.hash === "#pip", [window.location.hash])
 
     if (isPiPWindow) {
