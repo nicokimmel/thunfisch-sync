@@ -3,6 +3,7 @@ import SponsorBlock from "./sponsorblock.js"
 import {
     validateVideoId,
     validateSeekTime,
+    validateQueueIndex,
     validateQueueMove
 } from "./validate.js"
 
@@ -135,6 +136,27 @@ export default class MCP {
                         room.move(from, to)
                         this.io.in(room.id).emit("queue", room.queue)
                     }
+                    callback()
+                }
+            },
+            "queue-delete": {
+                description: "Removes a video from the queue. Indices start at 0.",
+                inputSchema: {
+                    type: "object",
+                    properties: {
+                        index: { type: "integer", description: "Index of the video" }
+                    },
+                    required: ["index"]
+                },
+                run: (room, args, callback) => {
+                    const result = validateQueueIndex(args.index)
+                    if (!result.valid) {
+                        callback(result.error)
+                        return
+                    }
+
+                    room.remove(args.index)
+                    this.io.in(room.id).emit("queue", room.queue)
                     callback()
                 }
             },

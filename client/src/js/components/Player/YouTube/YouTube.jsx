@@ -194,11 +194,11 @@ export default function YouTube({
         } catch (_) { }
 
         try {
-            player.setVolume(volume * 100)
+            muted ? player.mute() : player.unMute()
         } catch (_) { }
 
         try {
-            muted ? player.mute() : player.unMute()
+            player.setVolume(volume * 100)
         } catch (_) { }
 
         try {

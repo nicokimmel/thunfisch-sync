@@ -44,7 +44,7 @@ export default function Volume({
             {
                 (deviceType === "desktop" || deviceType === "pip") &&
                 <RangeSlider
-                    defaultValue={[0, localStorage.getItem("volume") * 100 || 25]}
+                    defaultValue={[0, (localStorage.getItem("volume") ?? 0.25) * 100]}
                     thumbsDisabled={[true, false]}
                     rangeSlideDisabled={true}
                     min={0}
