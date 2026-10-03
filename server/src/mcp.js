@@ -138,6 +138,24 @@ export default class MCP {
                     callback()
                 }
             },
+            "play": {
+                description: "Resumes the current video.",
+                inputSchema: { type: "object", properties: {} },
+                run: (room, args, callback) => {
+                    room.player.playing = true
+                    this.io.in(room.id).emit("play", room.player.time)
+                    callback()
+                }
+            },
+            "pause": {
+                description: "Pauses the current video.",
+                inputSchema: { type: "object", properties: {} },
+                run: (room, args, callback) => {
+                    room.player.playing = false
+                    this.io.in(room.id).emit("pause", room.player.time)
+                    callback()
+                }
+            },
             "seek": {
                 description: "Jumps to a position in the current video.",
                 inputSchema: {
