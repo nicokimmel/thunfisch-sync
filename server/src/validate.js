@@ -55,6 +55,13 @@ export function validateVideoList(videoList) {
     return { valid: true }
 }
 
+export function validateVideoId(videoId) {
+    if (typeof videoId !== "string" || !/^[A-Za-z0-9_-]{11}$/.test(videoId)) {
+        return { valid: false, error: "Video id must be a valid YouTube video id" }
+    }
+    return { valid: true }
+}
+
 export function validateRoomId(roomId) {
     if (typeof roomId !== "string" || roomId.length === 0) {
         return { valid: false, error: "Room ID must be a non-empty string" }

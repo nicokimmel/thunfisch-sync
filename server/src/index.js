@@ -10,6 +10,7 @@ import bodyParser from "body-parser"
 import { Room, RoomList } from "./rooms.js"
 import Connection from "./connection.js"
 import Sync from "./sync.js"
+import MCP from "./mcp.js"
 import CLI from "./cli.js"
 import ExitHelper from "./exithelper.js"
 
@@ -23,6 +24,7 @@ const server = http.createServer(app)
 const roomList = new RoomList()
 const connection = new Connection(server, roomList)
 const sync = new Sync(connection, roomList)
+const mcp = new MCP(connection)
 const cli = new CLI(roomList)
 new ExitHelper(roomList)
 
@@ -80,6 +82,39 @@ app.get("/api/:roomId", (req, res) => {
     }
 
     res.json(roomList.get(roomId))
+})
+
+app.post("/mcp/:roomId", (req, res) => {
+    // Always use uppercase room ids, no redirect since clients would drop the POST body
+    const roomId = req.params.roomId.toUpperCase()
+
+    if (!roomList.valid(roomId)) {
+        res.status(400).json({
+            status: "error",
+            message: "Room id invalid."
+        })
+        return
+    }
+
+    if (!roomList.exists(roomId)) {
+        res.status(404).json({
+            status: "error",
+            message: "Room not found."
+        })
+        return
+    }
+
+    mcp.handle(roomList.get(roomId), req.body, (response) => {
+        if (!response) {
+            res.status(202).end()
+            return
+        }
+        res.json(response)
+    })
+})
+
+app.get("/mcp/:roomId", (req, res) => {
+    res.status(405).end()
 })
 
 app.get("/:roomId", (req, res) => {
