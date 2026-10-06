@@ -2,7 +2,6 @@ import YouTube from "./youtube.js"
 import SponsorBlock from "./sponsorblock.js"
 import {
     validateVideoId,
-    validateSeekTime,
     validateQueueIndex,
     validateQueueMove
 } from "./validate.js"
@@ -58,7 +57,7 @@ export default class MCP {
 
         this.tools = {
             "get-room": {
-                description: "Returns the current video, playback time and queue of the room. All times are in seconds, a duration of -1 is a live stream.",
+                description: "Returns the current video, playback time, number of viewers and queue of the room. All times are in seconds, a duration of -1 is a live stream.",
                 inputSchema: { type: "object", properties: {} },
                 run: (room, args, callback) => {
                     callback()
@@ -177,30 +176,6 @@ export default class MCP {
                     this.io.in(room.id).emit("pause", room.player.time)
                     callback()
                 }
-            },
-            "seek": {
-                description: "Jumps to a position in the current video.",
-                inputSchema: {
-                    type: "object",
-                    properties: {
-                        time: { type: "number", description: "Position in seconds" }
-                    },
-                    required: ["time"]
-                },
-                run: (room, args, callback) => {
-                    const result = validateSeekTime(args.time)
-                    if (!result.valid) {
-                        callback(result.error)
-                        return
-                    }
-
-                    let time = Math.floor(args.time)
-                    if (time < 0) { time = 0 }
-                    if (room.video.duration > 0 && time > room.video.duration) { time = room.video.duration }
-                    room.player.time = time
-                    this.io.in(room.id).emit("seek", room.player.time)
-                    callback()
-                }
             }
         }
     }
@@ -251,6 +226,7 @@ export default class MCP {
             video: this.summary(room.video),
             time: room.player.time,
             playing: room.player.playing,
+            viewer: room.viewer,
             queue: room.queue.map((video, index) => ({ index: index, ...this.summary(video) }))
         }
     }
