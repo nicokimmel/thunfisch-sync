@@ -6,7 +6,7 @@ import {
 
 export default class Webhook {
 
-    static EVENTS = ["video", "play", "pause", "seek", "queue", "speed", "loop", "sponsorblock"]
+    static EVENTS = ["video", "play", "pause", "seek", "queue", "speed", "loop", "sponsorblock", "remove"]
     static MAX_HOOKS = 10
     static TIMEOUT = 5000
 

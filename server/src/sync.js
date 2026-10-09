@@ -19,9 +19,13 @@ export default class Sync {
                 if (room.viewer === 0) {
                     if (room.idle >= Sync.MAX_IDLE_TIME) {
                         if (!room.sticky) {
+                            this.webhook.send(room, "remove")
                             this.rooms.remove(room.id)
-                        } else {
+                            return
+                        } else if (room.player.playing) {
                             room.player.playing = false
+                            this.io.in(room.id).emit("pause", room.player.time)
+                            this.webhook.send(room, "pause")
                         }
                     } else {
                         room.idle = room.idle + 1
