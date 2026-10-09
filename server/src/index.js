@@ -11,6 +11,7 @@ import { Room, RoomList } from "./rooms.js"
 import Connection from "./connection.js"
 import Sync from "./sync.js"
 import MCP from "./mcp.js"
+import Webhook from "./webhook.js"
 import CLI from "./cli.js"
 import ExitHelper from "./exithelper.js"
 
@@ -22,9 +23,10 @@ const app = express()
 const server = http.createServer(app)
 
 const roomList = new RoomList()
-const connection = new Connection(server, roomList)
-const sync = new Sync(connection, roomList)
-const mcp = new MCP(connection)
+const webhook = new Webhook()
+const connection = new Connection(server, roomList, webhook)
+const sync = new Sync(connection, roomList, webhook)
+const mcp = new MCP(connection, webhook)
 const cli = new CLI(roomList)
 new ExitHelper(roomList)
 
@@ -115,6 +117,48 @@ app.post("/mcp/:roomId", (req, res) => {
 
 app.get("/mcp/:roomId", (req, res) => {
     res.status(405).end()
+})
+
+// Base for all hook routes, also matches everything below /hook/:roomId
+app.use("/hook/:roomId", (req, res, next) => {
+    // Always use uppercase room ids, no redirect since clients would drop the body
+    const roomId = req.params.roomId.toUpperCase()
+
+    if (!roomList.valid(roomId)) {
+        res.status(400).json({
+            status: "error",
+            message: "Room id invalid."
+        })
+        return
+    }
+
+    if (!roomList.exists(roomId)) {
+        res.status(404).json({
+            status: "error",
+            message: "Room not found."
+        })
+        return
+    }
+
+    req.room = roomList.get(roomId)
+    next()
+})
+
+app.post("/hook/:roomId", (req, res) => {
+    const result = webhook.add(req.room, req.body.url, req.body.events)
+    if (!result.valid) {
+        res.status(400).json({
+            status: "error",
+            message: result.error
+        })
+        return
+    }
+    res.status(201).json(req.room)
+})
+
+app.delete("/hook/:roomId", (req, res) => {
+    webhook.remove(req.room, req.body.url)
+    res.status(204).end()
 })
 
 app.get("/:roomId", (req, res) => {

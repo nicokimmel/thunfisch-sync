@@ -6,9 +6,10 @@ export default class Sync {
     static TICK_SPEED = 1000
     static MAX_IDLE_TIME = 300
 
-    constructor(connection, roomList) {
+    constructor(connection, roomList, webhook) {
         this.io = connection.get()
         this.rooms = roomList
+        this.webhook = webhook
         this.sponsorBlock = new SponsorBlock()
     }
 
@@ -42,6 +43,7 @@ export default class Sync {
                     if (seekTime) {
                         room.player.time = seekTime
                         this.io.in(room.id).emit("seek", seekTime)
+                        this.webhook.send(room, "seek")
                     }
                 }
 
@@ -49,7 +51,9 @@ export default class Sync {
                 if (room.player.time > room.video.duration) {
                     room.next()
                     this.io.in(room.id).emit("video", room.player, room.video)
+                    this.webhook.send(room, "video")
                     this.io.in(room.id).emit("queue", room.queue)
+                    this.webhook.send(room, "queue")
 
                     this.sponsorBlock.load(room.video.id, (segmentList) => {
                         room.player.sponsorBlock.segments = segmentList

@@ -10,8 +10,9 @@ export default class MCP {
 
     static PROTOCOL_VERSION = "2025-11-25"
 
-    constructor(connection) {
+    constructor(connection, webhook) {
         this.io = connection.get()
+        this.webhook = webhook
         this.youtube = new YouTube()
         this.sponsorBlock = new SponsorBlock()
 
@@ -81,6 +82,7 @@ export default class MCP {
 
                         room.play(videoList[0])
                         this.io.in(room.id).emit("video", room.player, room.video)
+                        this.webhook.send(room, "video")
 
                         this.sponsorBlock.load(room.video.id, (segmentList) => {
                             room.player.sponsorBlock.segments = segmentList
@@ -107,6 +109,7 @@ export default class MCP {
 
                         room.add(videoList)
                         this.io.in(room.id).emit("queue", room.queue)
+                        this.webhook.send(room, "queue")
                         callback()
                     })
                 }
@@ -134,6 +137,7 @@ export default class MCP {
                     if (from !== to) {
                         room.move(from, to)
                         this.io.in(room.id).emit("queue", room.queue)
+                        this.webhook.send(room, "queue")
                     }
                     callback()
                 }
@@ -156,6 +160,7 @@ export default class MCP {
 
                     room.remove(args.index)
                     this.io.in(room.id).emit("queue", room.queue)
+                    this.webhook.send(room, "queue")
                     callback()
                 }
             },
@@ -165,6 +170,7 @@ export default class MCP {
                 run: (room, args, callback) => {
                     room.player.playing = true
                     this.io.in(room.id).emit("play", room.player.time)
+                    this.webhook.send(room, "play")
                     callback()
                 }
             },
@@ -174,6 +180,7 @@ export default class MCP {
                 run: (room, args, callback) => {
                     room.player.playing = false
                     this.io.in(room.id).emit("pause", room.player.time)
+                    this.webhook.send(room, "pause")
                     callback()
                 }
             }

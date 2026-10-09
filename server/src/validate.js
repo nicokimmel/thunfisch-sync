@@ -119,3 +119,20 @@ export function validateQueueMove(from, to, queueLength) {
     }
     return { valid: true }
 }
+
+export function validateHookUrl(url) {
+    if (typeof url !== "string" || !/^https?:\/\/\S+$/.test(url)) {
+        return { valid: false, error: "Url must be a valid http or https url" }
+    }
+    return { valid: true }
+}
+
+export function validateHookEvents(events, eventList) {
+    if (events === undefined) {
+        return { valid: true }
+    }
+    if (!Array.isArray(events) || events.length === 0 || !events.every((event) => eventList.includes(event))) {
+        return { valid: false, error: `Events must be a non-empty list of: ${eventList.join(", ")}` }
+    }
+    return { valid: true }
+}
