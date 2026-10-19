@@ -1,3 +1,5 @@
+import { validateHeaderName, validateHeaderValue } from "node:http"
+
 const isString = (v) => typeof v === "string" && v.length > 0
 const isOptionalString = (v) => v === undefined || isString(v)
 const isObject = (v) => typeof v === "object" && v !== null
@@ -133,6 +135,32 @@ export function validateHookEvents(events, eventList) {
     }
     if (!Array.isArray(events) || events.length === 0 || !events.every((event) => eventList.includes(event))) {
         return { valid: false, error: `Events must be a non-empty list of: ${eventList.join(", ")}` }
+    }
+    return { valid: true }
+}
+
+export function validateHookHeaders(headers) {
+    if (headers === undefined) { return { valid: true } }
+    if (!isObject(headers) || Array.isArray(headers)) {
+        return { valid: false, error: "Headers must be an object of strings" }
+    }
+    try {
+        for (const [name, value] of Object.entries(headers)) {
+            if (typeof value !== "string") {
+                return { valid: false, error: "Header values must be strings" }
+            }
+            validateHeaderName(name)
+            validateHeaderValue(name, value)
+        }
+    } catch {
+        return { valid: false, error: "Invalid header name or value" }
+    }
+    return { valid: true }
+}
+
+export function validateHookThreshold(threshold) {
+    if (threshold !== undefined && (!Number.isSafeInteger(threshold) || threshold < 0)) {
+        return { valid: false, error: "Threshold must be a non-negative integer" }
     }
     return { valid: true }
 }

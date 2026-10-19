@@ -145,7 +145,7 @@ app.use("/hook/:roomId", (req, res, next) => {
 })
 
 app.post("/hook/:roomId", (req, res) => {
-    const result = webhook.add(req.room, req.body.url, req.body.events)
+    const result = webhook.add(req.room, req.body.url, req.body.events, req.body.headers, req.body.threshold)
     if (!result.valid) {
         res.status(400).json({
             status: "error",
