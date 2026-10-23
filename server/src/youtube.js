@@ -1,6 +1,5 @@
 import request from "request"
 import moment from "moment"
-import urlParser from "js-video-url-parser"
 
 export default class YouTube {
 
@@ -15,6 +14,11 @@ export default class YouTube {
 
     getVideoInfo(idList, callback) {
         request(YouTube.API_BASE_URL + "/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=200&id=" + idList.join(",") + "&key=" + this.key, { json: true }, (err, res, body) => {
+            if (err || !body) {
+                callback([])
+                return
+            }
+
             let videoList = []
             let channelIdList = []
 
@@ -56,6 +60,11 @@ export default class YouTube {
 
     getChannelInfo(idList, callback) {
         request(YouTube.API_BASE_URL + "/channels?part=snippet%2Cstatistics&maxResults=200&id=" + idList.join(",") + "&key=" + this.key, { json: true }, (err, res, body) => {
+            if (err || !body) {
+                callback([])
+                return
+            }
+
             let channelList = []
 
             for (let i in body.items) {
@@ -77,7 +86,12 @@ export default class YouTube {
     }
 
     getSearch(searchTerm, callback) {
-        request(YouTube.API_BASE_URL + "/search?part=id&type=video&q=" + searchTerm + "&maxResults=" + YouTube.MAX_SEARCH_RESULTS + "&key=" + this.key, { json: true }, (err, res, body) => {
+        request(YouTube.API_BASE_URL + "/search?part=id&type=video&q=" + encodeURIComponent(searchTerm) + "&maxResults=" + YouTube.MAX_SEARCH_RESULTS + "&key=" + this.key, { json: true }, (err, res, body) => {
+            if (err || !body) {
+                callback([])
+                return
+            }
+
             let idList = []
             for (let i in body.items) {
                 idList.push(body.items[i].id.videoId)
@@ -95,6 +109,11 @@ export default class YouTube {
 
         const getPlaylistVideos = () => {
             request(YouTube.API_BASE_URL + "/playlistItems?part=contentDetails&maxResults=50&playlistId=" + playlistId + "&key=" + this.key + pageToken, { json: true }, (err, res, body) => {
+                if (err || !body) {
+                    callback(playlistVideos)
+                    return
+                }
+
                 pageToken = "&pageToken=" + body.nextPageToken
 
                 let idList = []
@@ -119,18 +138,14 @@ export default class YouTube {
     }
 
     parse(searchTerm) {
-        const result = urlParser.parse(searchTerm)
-
-        if (!result) {
-            return { type: "s", value: searchTerm }
+        const video = searchTerm.match(/(?:[?&]v=|youtu\.be\/|shorts\/)([\w-]{11})/)
+        if (video) {
+            return { type: "v", value: video[1] }
         }
 
-        if (result.id) {
-            return { type: "v", value: result.id }
-        }
-
-        if (result.list) {
-            return { type: "p", value: result.list }
+        const playlist = searchTerm.match(/[?&]list=([\w-]+)/)
+        if (playlist) {
+            return { type: "p", value: playlist[1] }
         }
 
         return { type: "s", value: searchTerm }

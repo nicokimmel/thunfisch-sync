@@ -6,7 +6,7 @@ export default class SponsorBlock {
 
     load(videoId, callback) {
         request(SponsorBlock.API_BASE_URL + videoId, { json: true }, (err, res, body) => {
-            if (res.statusCode != 200) {
+            if (err || res.statusCode != 200) {
                 return
             }
 

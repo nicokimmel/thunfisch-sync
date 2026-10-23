@@ -1,5 +1,5 @@
 ---
-name: sync-custom-css-theme
+name: custom-css-theme
 description: Create paste-ready custom CSS themes for the Thunfisch Sync client. Use when the user describes a visual theme, wants custom colors, backgrounds, images, fonts, UI restyling, or asks for CSS that can be stored in localStorage as cssStyle.
 ---
 

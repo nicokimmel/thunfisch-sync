@@ -149,6 +149,9 @@ export function validateHookHeaders(headers) {
             if (typeof value !== "string") {
                 return { valid: false, error: "Header values must be strings" }
             }
+            if (["host", "content-length", "transfer-encoding"].includes(name.toLowerCase())) {
+                return { valid: false, error: `Header "${name}" is not allowed` }
+            }
             validateHeaderName(name)
             validateHeaderValue(name, value)
         }
